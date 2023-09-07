@@ -1,9 +1,12 @@
 import { Button } from '#ui/button';
 import { Input } from '#ui/input/input';
 import { useState } from 'react';
+import { Title } from "#ui/title/title";
+
 
 export const SingUpForm: React.FC = () => {
   const [name, setName] = useState('');
+  const [surname, setSurname] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmedPassword, setConfirmedPassword] = useState('');
@@ -11,7 +14,7 @@ export const SingUpForm: React.FC = () => {
   const [isRegistered, setIsRegistered] = useState(false);
   
   const handleRegistration = () => {
-    if (!name || !email || !password || !confirmedPassword) {
+    if (!name || !surname || !email || !password || !confirmedPassword) {
       setRegistrationError('All fields are required');
       setTimeout(() => {
         setRegistrationError(null); 
@@ -30,6 +33,7 @@ export const SingUpForm: React.FC = () => {
     setRegistrationError(null);
 
     setName('');
+    setSurname('');
     setEmail('');
     setPassword('');
     setConfirmedPassword('');
@@ -40,7 +44,7 @@ export const SingUpForm: React.FC = () => {
   if (isRegistered) {
     return (
       <div>
-        <h1>Registration Confirmation</h1>
+        <Title>Registration Confirmation</Title>
         <Button variant='primary' onClick={() => setIsRegistered(false)}>Go home</Button>
       </div>
     );
@@ -53,6 +57,12 @@ export const SingUpForm: React.FC = () => {
         labelText="Name"
         value={name}
         onChange={({ currentTarget }) => setName(currentTarget.value)}
+      />
+      <Input
+        type="text"
+        labelText="Surname"
+        value={surname}
+        onChange={({ currentTarget }) => setSurname(currentTarget.value)}
       />
       <Input
         type="email"
