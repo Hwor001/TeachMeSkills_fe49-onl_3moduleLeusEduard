@@ -12,3 +12,20 @@
   }
 }
 
+.Header {
+  width: 100%;
+  display: flex;
+  position: relative;
+}
+
+.pic1 {
+  width:18px;
+}
+
+.pic2 {
+  width:18px;
+}
+
+.pic3 {
+  width:18px;
+}

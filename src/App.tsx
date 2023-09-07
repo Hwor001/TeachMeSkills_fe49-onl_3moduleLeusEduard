@@ -11,9 +11,9 @@ function App() {
   };
 
   return (
-    <div className={`App ${isDarkMode ? 'dark' : ''}`}>
+    <div className={`App ${isDarkMode ? 'dark' : 'white'}`}>
+      <Button2 onClick={toggleDarkMode}>Black and White</Button2>
       <SingUp/>
-      <Button2 onClick={toggleDarkMode}>Black</Button2>
     </div>
   );
 }
