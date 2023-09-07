@@ -1,18 +1,19 @@
 import './App.css';
-
-import { Menu } from '#ui/menu/menu';
-import { TestForm } from './features/test-form/test-form';
+import { useState } from 'react';
+import { Button2 } from '#ui/button/button2';
+import { SingUp } from '#ui/pages/sing-up';
 
 function App() {
+  const [isDarkMode, setIsDarkMode] = useState(false);
+
+  const toggleDarkMode = () => {
+    setIsDarkMode(!isDarkMode);
+  };
+
   return (
-    <div>
-      <Menu
-        items={[
-          { id: '1', title: 'item 1' },
-          { id: '2', title: 'item 2' },
-        ]}
-      />
-      <TestForm />
+    <div className={`App ${isDarkMode ? 'dark' : ''}`}>
+      <SingUp/>
+      <Button2 onClick={toggleDarkMode}>Black</Button2>
     </div>
   );
 }

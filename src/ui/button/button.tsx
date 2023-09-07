@@ -27,11 +27,17 @@ export const Button: React.FC<Props> = ({
 
 const css = String.raw;
 
-const ButtonWrapper = styled.button<{ $variant: 'primary' | 'secondary' }>`
+const ButtonWrapper = styled.button<{ 
+  $variant: 'primary' | 'secondary';
+  $fitContent?:boolean; 
+}>`
   all: unset;
   cursor: pointer;
   border-radius: 4px;
   padding: 5px 10px;
+  width: ${({ $fitContent }) => $fitContent ? 'fit-content' : 'calc(100% - 20px)'};
+
+  
 
   ${({ $variant }) => {
     switch ($variant) {
