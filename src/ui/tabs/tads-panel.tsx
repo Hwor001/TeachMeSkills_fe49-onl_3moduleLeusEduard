@@ -12,7 +12,6 @@ type Props = {
    onTabClick: (id: string) => void;
 }
 
-
 export const TabPanel: React.FC<Props> = ({items, activeId, onTabClick}) => {
    return (
    <TabPanelWrapper>

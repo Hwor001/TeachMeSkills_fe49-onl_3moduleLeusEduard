@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import styled from 'styled-components';
 import { Button } from '../button2/button';
 import { Button2 } from '../button2/button2';
@@ -81,14 +81,14 @@ interface Props {
             </Button2>
             <NomberWrapper>{DislikeCount}</NomberWrapper>
           </div>
-          <div>
+          <FlagMoreVisible>
             <Button3 onClick={handFlagClick}>
               <img src={imageSrcFlag} alt="#" className="pic1" />
             </Button3>
             <Button4 onClick={handMoreVisibleClick}>
               <img src={imageSrcMoreVisible} alt="#" className="pic1" />
             </Button4>
-          </div>
+          </FlagMoreVisible>
         </ButtonWrapper>
       );
   };
@@ -101,4 +101,9 @@ interface Props {
   margin-left: 3px;
   margin-right: 3px;
   `
+  const FlagMoreVisible = styled.div`
+  display: inline-flex;
+  align-items: flex-end;
+  `
+  
   export default Down;
