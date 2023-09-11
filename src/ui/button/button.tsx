@@ -32,6 +32,7 @@ const ButtonWrapper = styled.button<{
   $fitContent?:boolean; 
 }>`
   all: unset;
+  text-align: center;
   cursor: pointer;
   border-radius: 4px;
   padding: 5px 10px;

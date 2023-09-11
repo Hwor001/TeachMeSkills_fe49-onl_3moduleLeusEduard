@@ -2,6 +2,7 @@ import { Button } from '#ui/button';
 import { Input } from '#ui/input/input';
 import { useState } from 'react';
 import { Title } from "#ui/title/title";
+import styled from 'styled-components';
 
 
 export const SingUpForm: React.FC = () => {
@@ -85,7 +86,14 @@ export const SingUpForm: React.FC = () => {
       />
       
       <Button variant='primary' onClick={handleRegistration}>Sing up</Button>
-      {registrationError && <p>{registrationError}</p>}
+      {registrationError && <ErrorWrapper>{registrationError}</ErrorWrapper>}
     </form>
   );
 };
+
+const ErrorWrapper = styled.p`
+  color: red; 
+  font-weight: bold;
+  margin-top: 5px;
+  width: 181px
+`

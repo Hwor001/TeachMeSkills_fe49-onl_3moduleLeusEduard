@@ -2,6 +2,7 @@ import './App.css';
 import { useState } from 'react';
 import { Button2 } from '#ui/button/button2';
 import { SingUp } from '#ui/pages/sing-up';
+import { SingIn } from '#ui/pages/sing-in';
 
 function App() {
   const [isDarkMode, setIsDarkMode] = useState(false);
@@ -14,6 +15,7 @@ function App() {
     <div className={`App ${isDarkMode ? 'dark' : 'white'}`}>
       <Button2 onClick={toggleDarkMode}>Black and White</Button2>
       <SingUp/>
+      <SingIn/>
     </div>
   );
 }
