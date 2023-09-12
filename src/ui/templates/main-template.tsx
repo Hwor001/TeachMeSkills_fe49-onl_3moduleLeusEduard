@@ -30,11 +30,13 @@ export const MainTemplate: React.FC<Props> = ({header, backLink, title, body}) =
 
 const MainTemplateWraper = styled.div`
 width:100%;
-height:100vh;
+min-height: 100vh;
 display:flex;
 flex-direction: column;
 align-items: center;
 
+
+height: auto;
 background-color: var(--backgrpund-primary-color);
 ` 
 
@@ -59,7 +61,7 @@ height: 50px;
 const TitleConteiner = styled.div`
 width: 100%;
 text-align: start;
-height: 75px;
+height: auto;
 `
 
 const BodyConteiner = styled.div`

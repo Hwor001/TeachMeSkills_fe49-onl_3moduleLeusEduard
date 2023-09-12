@@ -50,8 +50,7 @@ const css = String.raw;
 const TabPanel2Wrapper = styled.ul`
    all: unset;
    display: flex;
-   color: black;
-   background-color: white;
+   color: var(--text-primary-color);
 
    & > * + * {
       margin-inline-start: 15px;
@@ -81,7 +80,7 @@ const Tab: React.FC<TabProps> = ({id, title, isActive, onClick}) => {
 
 const TabWrapper = styled.li<{ $isActive:boolean}>`
    display: block;
-   border-bottom: ${({$isActive})=>{return $isActive && css`1px solid black`}}
+   border-bottom: ${({$isActive})=>{return $isActive && css`1px solid var(--text-primary-color);`}}
 `
 
 const TabButton = styled.button`

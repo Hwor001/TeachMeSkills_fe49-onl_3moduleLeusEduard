@@ -39,15 +39,16 @@ const Post2: React.FC<Props> = (props) => {
 
 const PostWrapper = styled.div`
    width: 370px;
-   background-color: white;
    color: black;
    padding: 15px;
 
    & p,h3 {
       margin: 0 0 5px 0;
+      color: var(--text-primary-color);
     }
     & span {
       font-size: 25px;
+      color: var(--text-primary-color);
     }
 `;
 

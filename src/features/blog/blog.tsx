@@ -4,7 +4,7 @@ import Post from '#ui/post1/post1';
 import Post2 from '#ui/post2/post2';
 import Post3 from '#ui/post3/post3';
 import styled from 'styled-components';
-import image1 from './Space_Milky_way_and_bright_night_stars_in_the_sky_159566_33.jpg';
+import image1 from '../../Space_Milky_way_and_bright_night_stars_in_the_sky_159566_33.jpg';
 import { TabPanel2 } from '#ui/tabs/tabs-down';
 
 export const BlogContext: React.FC = () => {
@@ -15,11 +15,11 @@ export const BlogContext: React.FC = () => {
   ]
   
   const tabNumber = [
-    {id:'4',title:'1'},
-    {id:'5',title:'2'},
-    {id:'6',title:'3'},
-    {id:'7',title:'4'},
-    {id:'8',title:'5'},
+    {id:'1',title:'1'},
+    {id:'2',title:'2'},
+    {id:'3',title:'3'},
+    {id:'4',title:'4'},
+    {id:'5',title:'5'},
   ]
 
   const [activeTabId, setActiveTabId] = useState(tabItems[0].id)

@@ -4,6 +4,7 @@ import { Title } from "#ui/title/title"
 import { Backlink } from "../../features/back-link/back-link"
 import { BlogContext } from "../../features/blog/blog"
 
+
 export const Blog: React.FC = () => {
    return <MainTemplate 
    header={<Header></Header>} 
@@ -12,3 +13,4 @@ export const Blog: React.FC = () => {
    body={<BlogContext/>}
    />
 }
+

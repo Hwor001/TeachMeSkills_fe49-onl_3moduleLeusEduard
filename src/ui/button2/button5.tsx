@@ -15,4 +15,5 @@ const ButtonWrapper = styled.button`
   all: unset;
   cursor: pointer;
   margin-left: 5px;
+  color: var(--text-primary-color);
 `;

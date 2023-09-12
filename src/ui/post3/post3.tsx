@@ -40,15 +40,16 @@ const Post3: React.FC<Props> = (props) => {
 };
 
 const PostWrapper = styled.div`
-  background-color: white;
   color: black;
   width: 370px;
   padding: 15px;
   & span {
     font-size: 25px;
+    color: var(--text-primary-color);
   }
   & p,h3 {
     margin: 0 0 5px 0;
+    color: var(--text-primary-color);
   }
 `;
 
