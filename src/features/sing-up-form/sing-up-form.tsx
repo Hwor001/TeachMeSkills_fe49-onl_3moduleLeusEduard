@@ -7,7 +7,7 @@ import styled from 'styled-components';
 
 export const SingUpForm: React.FC = () => {
   const [name, setName] = useState('');
-  const [surname, setSurname] = useState('');
+  const [lastname, setLastname] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmedPassword, setConfirmedPassword] = useState('');
@@ -15,7 +15,7 @@ export const SingUpForm: React.FC = () => {
   const [isRegistered, setIsRegistered] = useState(false);
   
   const handleRegistration = () => {
-    if (!name || !surname || !email || !password || !confirmedPassword) {
+    if (!name ||  !email || !password || !confirmedPassword) {
       setRegistrationError('All fields are required');
       setTimeout(() => {
         setRegistrationError(null); 
@@ -33,8 +33,13 @@ export const SingUpForm: React.FC = () => {
 
     setRegistrationError(null);
 
+    localStorage.setItem('name', name);
+    localStorage.setItem('lastname', lastname);
+    localStorage.setItem('email', email);
+    localStorage.setItem('password', password);
+
     setName('');
-    setSurname('');
+    setLastname('');
     setEmail('');
     setPassword('');
     setConfirmedPassword('');
@@ -61,9 +66,10 @@ export const SingUpForm: React.FC = () => {
       />
       <Input
         type="text"
-        labelText="Surname"
-        value={surname}
-        onChange={({ currentTarget }) => setSurname(currentTarget.value)}
+        labelText="Last name"
+        value={lastname}
+        onChange={({ currentTarget }) => setLastname(currentTarget.value)}
+        error={email ? undefined : `Last name is not required`}
       />
       <Input
         type="email"
@@ -84,7 +90,6 @@ export const SingUpForm: React.FC = () => {
         value={confirmedPassword}
         onChange={({ currentTarget }) => setConfirmedPassword(currentTarget.value)}
       />
-      
       <Button variant='primary' onClick={handleRegistration}>Sing up</Button>
       {registrationError && <ErrorWrapper>{registrationError}</ErrorWrapper>}
     </form>

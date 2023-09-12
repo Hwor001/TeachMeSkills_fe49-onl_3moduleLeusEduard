@@ -10,9 +10,11 @@ export const SingInForm: React.FC = () => {
   const [password, setPassword] = useState('');
   const [registrationError, setRegistrationError] = useState<string | null>(null);
   const [isRegistered, setIsRegistered] = useState(false);
-  
+
   const handleRegistration = () => {
-    if (name !== '123' || password !== '123') {
+    const savedName = localStorage.getItem('name');
+    const savedPassword = localStorage.getItem('password');
+    if ( name !== savedName || password !== savedPassword ) {
       setRegistrationError('Name and password are not correct');
       setTimeout(() => {
         setRegistrationError(null);

@@ -9,13 +9,15 @@ import { Button5 } from '../button/button5';
 import { Button6 } from '../button/button6';
 
 interface Props {
- 
+  
 }
 
 export const Header: React.FC<Props> = () => {
   const [showLogo, setShowLogo] = useState(false);
   const [currentImage, setCurrentImage] = useState(burger);
   const [inputValue, setInputValue] = useState('');
+  const savedName = localStorage.getItem('name') || '';
+  const savedLastName = localStorage.getItem('lastname') || ''; 
 
   const toggleLogo = () => {
     setShowLogo(!showLogo);
@@ -54,9 +56,9 @@ export const Header: React.FC<Props> = () => {
       <Button4 onClick={handleSearch}>
         <img src={lupa} alt='#' className='pic2' />
       </Button4>
-      <Logo username='Artem Malkin' />
+      <Logo username={`${savedName} ${savedLastName}`} />
       <LogoWrapper>{showLogo && (
-          <Logo username='Artem Malkin' />
+          <Logo username={`${savedName} ${savedLastName}`} />
       )}</LogoWrapper>
     </div>
   );

@@ -7,18 +7,16 @@ interface Props {
 };
 
 export const NameLogo: React.FC<Props> = ({username}) => {
-   return <NameLogoWrapper className="logo-content">
+   return <NameLogoWrapper>
       {username}
       </NameLogoWrapper>;
 };
 
 const NameLogoWrapper = styled.div`
 all: unset;
-padding: 12px;
+padding: 10px;
 background-color: #3b3b89;
 margin-right: 20px;
-display: inline-flex;
-align-items: center;
 `;
 
 export default NameLogo;
