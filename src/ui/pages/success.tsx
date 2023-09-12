@@ -1,16 +1,17 @@
 import { Button3 } from "#ui/button/button3"
+import Header from "#ui/seach/seach"
 import { MainTemplate } from "#ui/templates/main-template"
 import { Title } from "#ui/title/title"
 import { Backlink } from "../../features/back-link/back-link"
 
-export const Registration: React.FC = () => {
+export const Success: React.FC = () => {
    const handleButtonClick = () => {
       
    };
    return <MainTemplate 
-   header={<header style={{width:'100%;', height:'40px'}}>Header</header>} 
+   header={<Header/>} 
    backLink={<Backlink/>} 
-   title={<Title>Registration Confirmation</Title>} 
+   title={<Title>Success</Title>} 
    body={<Button3 onClick={handleButtonClick}>Go home</Button3>}
    />
 }

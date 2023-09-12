@@ -12,6 +12,12 @@ export const Button3: React.FC<Props> = ({ children, disabled, onClick }) => {
 };
 
 const ButtonWrapper = styled.button`
+  all: unset;
+  background-color: blue;
   cursor: pointer;
-  margin-right: 5px;
+  padding: 5px 20px;
+  color: var(--text-primary-color);
+  border: 1px solid white;
+  border-radius: 4px;
+  color: white;
 `;

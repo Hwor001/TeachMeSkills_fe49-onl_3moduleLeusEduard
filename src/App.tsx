@@ -5,6 +5,8 @@ import { SingUp } from '#ui/pages/sing-up';
 import { SingIn } from '#ui/pages/sing-in';
 import { Blog } from '#ui/pages/blog';
 import { SelectPost } from '#ui/pages/selectPost';
+import { Registration } from '#ui/pages/registration';
+import { Success } from '#ui/pages/success';
 
 function App() {
   const [isDarkMode, setIsDarkMode] = useState(false);
@@ -17,7 +19,9 @@ function App() {
     <div className={`App ${isDarkMode ? 'dark' : 'white'}`}>
       <Button2 onClick={toggleDarkMode}>Black and White</Button2>
       <SingUp/>
+      <Registration/>
       <SingIn/>
+      <Success/>
       <SelectPost/>
       <Blog/>
     </div>
