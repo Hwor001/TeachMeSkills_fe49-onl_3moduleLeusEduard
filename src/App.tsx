@@ -1,31 +1,13 @@
-import './App.css';
-import { useState } from 'react';
-import { Button2 } from '#ui/button/button2';
-import { SingUp } from '#ui/pages/sing-up';
-import { SingIn } from '#ui/pages/sing-in';
-import { Blog } from '#ui/pages/blog';
-import { SelectPost } from '#ui/pages/selectPost';
-import { Registration } from '#ui/pages/registration';
-import { Success } from '#ui/pages/success';
+import { RouterProvider, createBrowserRouter } from 'react-router-dom';
+import Root from './Root';
 
-function App() {
-  const [isDarkMode, setIsDarkMode] = useState(false);
+const router = createBrowserRouter ([
+  {
+    path: '*',
+    Component: Root,
+  }
+]);
 
-  const toggleDarkMode = () => {
-    setIsDarkMode(!isDarkMode);
-  };
-
-  return (
-    <div className={`App ${isDarkMode ? 'dark' : 'white'}`}>
-      <Button2 onClick={toggleDarkMode}>Black and White</Button2>
-      <SingUp/>
-      <Registration/>
-      <SingIn/>
-      <Success/>
-      <SelectPost/>
-      <Blog/>
-    </div>
-  );
+export default function App() {
+  return <RouterProvider router={router} />
 }
-
-export default App;

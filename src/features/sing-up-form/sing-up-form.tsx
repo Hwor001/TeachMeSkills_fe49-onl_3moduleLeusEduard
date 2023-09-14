@@ -3,10 +3,13 @@ import { Input } from '#ui/input/input';
 import { useState } from 'react';
 import { Title } from "#ui/title/title";
 import styled from 'styled-components';
+import { setName } from './sing-up-form-slice';
+import { useAppDispatch, useAppSelector } from '../../hooks';
 
 
 export const SingUpForm: React.FC = () => {
-  const [name, setName] = useState('');
+  const disptch = useAppDispatch();
+  const name = useAppSelector(({singUpForm}) => singUpForm.name);
   const [lastname, setLastname] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -15,7 +18,7 @@ export const SingUpForm: React.FC = () => {
   const [isRegistered, setIsRegistered] = useState(false);
   
   const handleRegistration = () => {
-    if (!name ||  !email || !password || !confirmedPassword) {
+    if ( !email || !password || !confirmedPassword) {
       setRegistrationError('All fields are required');
       setTimeout(() => {
         setRegistrationError(null); 
@@ -33,10 +36,10 @@ export const SingUpForm: React.FC = () => {
 
     setRegistrationError(null);
 
-    localStorage.setItem('name', name);
-    localStorage.setItem('lastname', lastname);
-    localStorage.setItem('email', email);
-    localStorage.setItem('password', password);
+    // localStorage.setItem('name', name);
+    // localStorage.setItem('lastname', lastname);
+    // localStorage.setItem('email', email);
+    // localStorage.setItem('password', password);
 
     setName('');
     setLastname('');
@@ -62,7 +65,7 @@ export const SingUpForm: React.FC = () => {
         type="text"
         labelText="Name"
         value={name}
-        onChange={({ currentTarget }) => setName(currentTarget.value)}
+        onChange={({ currentTarget }) => disptch(setName(currentTarget.value))}
       />
       <Input
         type="text"

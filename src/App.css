@@ -12,10 +12,11 @@
   }
 }
 
-.Header {
-  width: 100%;
-  display: flex;
-  position: relative;
+& a {
+  all: unset;
+  color: var(--text-primary-color);
+  text-decoration: underline;
+  cursor: pointer;
 }
 
 .pic1 {

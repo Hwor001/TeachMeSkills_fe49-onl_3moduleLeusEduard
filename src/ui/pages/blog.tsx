@@ -9,7 +9,7 @@ export const Blog: React.FC = () => {
    return <MainTemplate 
    header={<Header></Header>} 
    backLink={<Backlink/>} 
-   title={<Title>Blog</Title>} 
+   title={<Title>Blog</Title>}
    body={<BlogContext/>}
    />
 }

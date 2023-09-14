@@ -8,8 +8,15 @@ interface Props {
 }
 
 export const Button: React.FC<Props> = ({ children, disabled, onClick }) => {
-  return <ButtonWrapper type="button" disabled={disabled} onClick={onClick}>{children}</ButtonWrapper>;
+  return <ButtonWrapper type="button" disabled={disabled} onClick={onClick}>
+    
+      {children}
+      </ButtonWrapper>;
 };
+
+// const FontAwesomeIcon = styled.button`
+
+// `
 
 const ButtonWrapper = styled.button`
   all: unset;

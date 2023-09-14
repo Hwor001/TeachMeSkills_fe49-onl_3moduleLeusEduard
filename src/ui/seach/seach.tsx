@@ -33,9 +33,11 @@ export const Header: React.FC<Props> = () => {
   }
 
   return (
-    <div className='Header'>
+    <HeaderWrapper>
       <Button5 onClick={toggleLogo}>
         <img src={currentImage} alt='#' className='pic1' />
+        {/* <div className='burger-icon'>
+        </div> */}
       </Button5>
       {showLogo ? (
         <BlueRectangle className="blue-rectangle" />
@@ -60,9 +62,15 @@ export const Header: React.FC<Props> = () => {
       <LogoWrapper>{showLogo && (
           <Logo username={`${savedName} ${savedLastName}`} />
       )}</LogoWrapper>
-    </div>
+    </HeaderWrapper>
   );
 };
+
+const HeaderWrapper = styled.div`
+  width: 100%;
+  display: flex;
+  position: relative;
+`
 
 const LogoWrapper = styled.div`
   display: flex;
@@ -79,7 +87,7 @@ const SeachWrapper = styled.div`
     padding: 27px 0 26px 0;
     color: white;
     &::placeholder {
-      color: silver; /* Gray color for placeholder */
+      color: silver; 
     }
   }
 `;
