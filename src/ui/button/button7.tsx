@@ -8,7 +8,11 @@ interface Props {
 }
 
 export const Button7: React.FC<Props> = ({ children, disabled, onClick }) => {
-  return <ButtonWrapper type="button" disabled={disabled} onClick={onClick}>{children}</ButtonWrapper>;
+  return (
+    <ButtonWrapper type="button" disabled={disabled} onClick={onClick}>
+      {children}
+    </ButtonWrapper>
+  );
 };
 
 const ButtonWrapper = styled.button`

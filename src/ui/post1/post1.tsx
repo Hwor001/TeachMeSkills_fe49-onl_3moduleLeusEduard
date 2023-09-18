@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import Down from '../down/down';
+import PanelPost from '../panelpost/panelpost';
 
 interface Props {
   id: number;
@@ -31,11 +31,9 @@ const Post: React.FC<Props> = (props) => {
           <h2>{truncateText(title, 80)}</h2>
           <p>{text}</p>
         </PostWrapper3>
-        <PostImg>
-          {image && <img src={image} alt={`Post ${id}`} />}
-        </PostImg> 
+        <PostImg>{image && <img src={image} alt={`Post ${id}`} />}</PostImg>
       </PostWrapper2>
-         <Down/>
+      <PanelPost />
     </PostWrapper>
   );
 };
@@ -45,31 +43,32 @@ const PostWrapper = styled.div`
   width: 770px;
   padding: 15px;
 
-  & p,h2 {
+  & p,
+  h2 {
     margin: 0 0 5px 0;
     color: var(--text-primary-color);
   }
   & span {
-    font-size: 25px;
+    font-size: 17px;
     color: var(--text-primary-color);
   }
 `;
 
 const PostWrapper2 = styled.div`
-  display:flex;
+  display: flex;
   justify-content: space-between;
   margin-bottom: 5px;
-`
+`;
 
 const PostWrapper3 = styled.div`
   text-align: initial;
-`
+`;
 
 const PostImg = styled.div`
   width: 244px;
   img {
     width: -webkit-fill-available;
   }
-`
+`;
 
 export default Post;

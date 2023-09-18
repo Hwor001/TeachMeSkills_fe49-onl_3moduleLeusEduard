@@ -23,10 +23,14 @@ const Label = styled.label`
 
 const LabelText = styled.div`
   text-align: start;
-`
+  position: relative;
+  margin-bottom: 8px;
+  left: 1px;
+`;
 
 const InputWrapper = styled.input<{ $borderColor?: string }>`
   all: unset;
+  width: 544px;
   box-sizing: border-box;
   border: 1px solid var(--border-color)};
 

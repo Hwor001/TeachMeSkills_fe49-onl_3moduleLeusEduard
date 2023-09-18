@@ -1,12 +1,12 @@
 .App {
-  --backgrpund-primary-color:rgb(255, 255, 255);
-  --text-primary-color:black;
+  --backgrund-primary-color: white;
+  --text-primary-color: black;
   --text-secondary-color: gray;
   --border-color: black;
 
   &.dark {
-    --backgrpund-primary-color:black;
-    --text-primary-color:white;
+    --backgrpund-primary-color: black;
+    --text-primary-color: white;
     --text-secondary-color: gray;
     --border-color: white;
   }
@@ -20,13 +20,13 @@
 }
 
 .pic1 {
-  width:18px;
+  width: 18px;
 }
 
 .pic2 {
-  width:18px;
+  width: 18px;
 }
 
 .pic3 {
-  width:18px;
+  width: 18px;
 }
