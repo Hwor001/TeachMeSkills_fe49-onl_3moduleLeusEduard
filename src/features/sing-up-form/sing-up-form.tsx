@@ -7,7 +7,7 @@ import { setName } from './sing-up-form-slice';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 
 export const SingUpForm: React.FC = () => {
-  const disptch = useAppDispatch();
+  const dispatch = useAppDispatch();
   const name = useAppSelector(({ singUpForm }) => singUpForm.name);
   const [email, setEmail] = useState('');
   const [lastname, setLastname] = useState('');
@@ -68,7 +68,7 @@ export const SingUpForm: React.FC = () => {
         type="text"
         labelText="Name"
         value={name}
-        onChange={({ currentTarget }) => disptch(setName(currentTarget.value))}
+        onChange={({ currentTarget }) => dispatch(setName(currentTarget.value))}
       />
       <Input
         type="text"
