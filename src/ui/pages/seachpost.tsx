@@ -9,7 +9,7 @@ export const SeachPost: React.FC = () => {
     <MainTemplate
       header={<Header></Header>}
       backLink={<Backlink />}
-      title={<Title>Seach results </Title>}
+      title={<Title>Seach results ''</Title>}
       body={<SeachPostForm />}
     />
   );

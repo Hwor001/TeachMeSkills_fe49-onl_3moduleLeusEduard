@@ -1,5 +1,4 @@
 import './App.css';
-import { useState } from 'react';
 import { Button2 } from '#ui/button/button2';
 import { SingUp } from '#ui/pages/sing-up';
 import { SingIn } from '#ui/pages/sing-in';
@@ -9,14 +8,11 @@ import { Registration } from '#ui/pages/registration';
 import { Success } from '#ui/pages/success';
 import styled from 'styled-components';
 import { SeachPost } from '#ui/pages/seachpost';
+import { useTheme } from './ui/theme/themeContext';
 // import { Link, Route, Routes } from 'react-router-dom'
 
 export function Root() {
-  const [isDarkMode, setIsDarkMode] = useState(false);
-
-  const toggleDarkMode = () => {
-    setIsDarkMode(!isDarkMode);
-  };
+  const { isDarkMode, toggleDarkMode } = useTheme();
 
   return (
     <div className={`App ${isDarkMode ? 'dark' : 'white'}`}>
@@ -44,7 +40,7 @@ const ButtonWrapper = styled.div`
   display: flex;
   position: absolute;
   z-index: 1;
-  top: 45px;
+  top: 64px;
   right: -5px;
 `;
 

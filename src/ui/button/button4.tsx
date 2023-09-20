@@ -17,7 +17,7 @@ export const Button4: React.FC<Props> = ({ children, disabled, onClick }) => {
 
 const ButtonWrapper = styled.button`
   all: unset;
-  padding: 11px 11px;
+  padding: 11px 24px;
   background-color: blue;
   cursor: pointer;
   color: white;
