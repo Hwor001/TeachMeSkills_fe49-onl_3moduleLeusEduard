@@ -1,4 +1,3 @@
-import * as React from 'react';
 import styled from 'styled-components';
 import { NameLogo } from './namelogo';
 
@@ -27,6 +26,7 @@ const LogoWrapper = styled.div`
   white-space: nowrap;
   display: flex;
   align-items: center;
+  justify-content: center;
 `;
 
 export default Logo;

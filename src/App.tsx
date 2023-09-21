@@ -1,5 +1,5 @@
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
-import { ThemeProvider } from './ui/theme/themeContext'; // Import the ThemeProvider
+import { ThemeProvider } from './ui/theme/themeContext';
 import Root from './Root';
 
 const router = createBrowserRouter([

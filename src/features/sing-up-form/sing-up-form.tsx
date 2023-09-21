@@ -1,14 +1,14 @@
 import { Button } from '#ui/button';
 import { Input } from '#ui/input/input';
-import { useState } from 'react';
-import { Title } from '#ui/title/title';
 import styled from 'styled-components';
 import { setName } from './sing-up-form-slice';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 export const SingUpForm: React.FC = () => {
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
   const nameInputRef = useRef<HTMLInputElement | null>(null);
   const lastnameInputRef = useRef<HTMLInputElement | null>(null);
   const emailInputRef = useRef<HTMLInputElement | null>(null);
@@ -22,7 +22,6 @@ export const SingUpForm: React.FC = () => {
   const [registrationError, setRegistrationError] = useState<string | null>(
     null
   );
-  const [isRegistered, setIsRegistered] = useState(false);
 
   const handleRegistration = () => {
     if (!name || !email || !password || !confirmedPassword) {
@@ -53,24 +52,13 @@ export const SingUpForm: React.FC = () => {
     setEmail('');
     setPassword('');
     setConfirmedPassword('');
-    nameInputRef.current?.focus();
+    // nameInputRef.current?.focus();
     // lastnameInputRef.current?.focus();
     // emailInputRef.current?.focus();
     // passwordInputRef.current?.focus();
     // confirmedPasswordInputRef.current?.focus();
-    setIsRegistered(true);
+    navigate('/registration');
   };
-
-  if (isRegistered) {
-    return (
-      <div>
-        <Title>Registration Confirmation</Title>
-        <Button variant="primary" onClick={() => setIsRegistered(false)}>
-          Go home
-        </Button>
-      </div>
-    );
-  }
 
   return (
     <RegistrationWrapper>

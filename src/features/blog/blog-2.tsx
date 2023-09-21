@@ -5,8 +5,10 @@ import Post3 from '#ui/post3/post3';
 import styled from 'styled-components';
 import image1 from '../../Space_Milky_way_and_bright_night_stars_in_the_sky_159566_33.jpg';
 import { TabPanel2 } from '#ui/tabs/tabs-down';
+import { useNavigate } from 'react-router-dom';
 
 export const BlogContext2: React.FC = () => {
+  const navigate = useNavigate();
   const tabItems = [
     { id: '1', title: 'All' },
     { id: '2', title: 'My favorites' },
@@ -81,7 +83,12 @@ export const BlogContext2: React.FC = () => {
       <TabPanel2
         numbers={tabNumber}
         activeId={activeNumberId}
-        onTabClick={setActiveNumberId}
+        onTabClick={(activeId) => {
+          setActiveNumberId(activeId);
+          if (activeId === '1') {
+            navigate('/blog');
+          }
+        }}
       />
     </AllPostAndPanelWrapper>
   );

@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 type Props = {
-  children: string;
+  children: string[] | string;
 };
 
 export const Title: React.FC<Props> = ({ children }) => {

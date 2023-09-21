@@ -7,7 +7,6 @@ type ThemeContextType = {
 
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
-// Define the ThemeProvider component with the children prop
 export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
