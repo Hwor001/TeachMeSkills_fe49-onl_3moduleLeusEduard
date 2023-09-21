@@ -1,4 +1,3 @@
-import React from 'react';
 import styled from 'styled-components';
 
 interface Props {
@@ -14,10 +13,6 @@ export const Button: React.FC<Props> = ({ children, disabled, onClick }) => {
     </ButtonWrapper>
   );
 };
-
-// const FontAwesomeIcon = styled.button`
-
-// `
 
 const ButtonWrapper = styled.button`
   all: unset;

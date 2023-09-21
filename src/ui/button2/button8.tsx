@@ -1,4 +1,3 @@
-import React from 'react';
 import styled from 'styled-components';
 
 interface Props {
@@ -18,6 +17,7 @@ export const Button8: React.FC<Props> = ({ children, disabled, onClick }) => {
 const ButtonWrapper = styled.button`
   all: unset;
   cursor: pointer;
-  margin-left: 5px;
-  color: var(--text-primary-color);
+  text-align: center;
+  border: 1px solid silver;
+  padding: 15px;
 `;

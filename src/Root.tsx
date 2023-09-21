@@ -9,33 +9,72 @@ import { Registration } from '#ui/pages/registration';
 import { Success } from '#ui/pages/success';
 import styled from 'styled-components';
 import { SeachPost } from '#ui/pages/seachpost';
-// import { Link, Route, Routes } from 'react-router-dom'
+import { useTheme } from './ui/theme/themeContext';
+import { Blog2 } from '#ui/pages/blog2';
+import { Link, Route, Routes, useNavigate } from 'react-router-dom';
 
 export function Root() {
-  const [isDarkMode, setIsDarkMode] = useState(false);
+  const { isDarkMode, toggleDarkMode } = useTheme();
+  const navigate = useNavigate();
+  const [searchText, setSearchText] = useState('');
 
-  const toggleDarkMode = () => {
-    setIsDarkMode(!isDarkMode);
+  const handleSearch = (inputValue: string) => {
+    setSearchText(inputValue);
+    navigate('/seachPost');
   };
 
   return (
-    <div className={`App ${isDarkMode ? 'dark' : 'white'}`}>
+    <div className={`App ${isDarkMode ? 'dark' : 'extra light'}`}>
       <ButtonWrapper>
-        <Button2 onClick={toggleDarkMode}>Black and White</Button2>
+        <Button2 onClick={toggleDarkMode}>Black and Extra light</Button2>
       </ButtonWrapper>
-      {/* <Routes>
-         <Route path="/">
-            <Route index element={<Link to="/sing-up">Go to sing up</Link>} />
-            <Route path="/sing-up" element={<SingUp />} />
-         </Route>
-      </Routes> */}
-      <SingUp />
+      <Routes>
+        <Route path="/">
+          <Route index element={<Link to="/sing-up">Go to sing up</Link>} />
+          <Route
+            path="/sing-up"
+            element={<SingUp handleSearch={handleSearch} />}
+          />
+          <Route
+            path="/registration"
+            element={<Registration handleSearch={handleSearch} />}
+          />
+          <Route
+            path="/sing-in"
+            element={<SingIn handleSearch={handleSearch} />}
+          />
+          <Route
+            path="/success"
+            element={<Success handleSearch={handleSearch} />}
+          />
+          <Route
+            path="/selectPost"
+            element={<SelectPost handleSearch={handleSearch} />}
+          />
+          <Route
+            path="/seachPost"
+            element={
+              <SeachPost
+                handleSearch={handleSearch}
+                searchResultsText={searchText}
+              />
+            }
+          />
+          <Route path="/blog" element={<Blog handleSearch={handleSearch} />} />
+          <Route
+            path="/blog2"
+            element={<Blog2 handleSearch={handleSearch} />}
+          />
+        </Route>
+      </Routes>
+      {/* <SingUp />
       <Registration />
       <SingIn />
       <Success />
       <SelectPost />
       <Blog />
-      <SeachPost />
+      <Blog2 />
+      <SeachPost /> */}
     </div>
   );
 }
@@ -44,7 +83,7 @@ const ButtonWrapper = styled.div`
   display: flex;
   position: absolute;
   z-index: 1;
-  top: 45px;
+  top: 64px;
   right: -5px;
 `;
 

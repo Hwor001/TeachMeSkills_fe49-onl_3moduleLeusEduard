@@ -4,10 +4,14 @@ import { Title } from '#ui/title/title';
 import { Backlink } from '../../features/back-link/back-link';
 import { BlogContext } from '../../features/blog/blog';
 
-export const Blog: React.FC = () => {
+interface Props {
+  handleSearch: (searchText: string) => void;
+}
+
+export const Blog: React.FC<Props> = ({ handleSearch }) => {
   return (
     <MainTemplate
-      header={<Header></Header>}
+      header={<Header handleSearch={handleSearch}></Header>}
       backLink={<Backlink />}
       title={<Title>Blog</Title>}
       body={<BlogContext />}
