@@ -8,12 +8,13 @@ interface Props {
 
 export const Logo: React.FC<Props> = ({ username }) => {
   const savedName = localStorage.getItem('name') || '';
+  const savedLastName = localStorage.getItem('lastname') || '';
 
   const firstNameInitial = savedName.charAt(0).toUpperCase();
-
+  const firstLastNameInitial = savedLastName.charAt(0).toUpperCase();
   return (
     <LogoWrapper>
-      <NameLogo username={`${firstNameInitial}`} />
+      <NameLogo username={`${firstNameInitial}${firstLastNameInitial}`} />
       {username}
     </LogoWrapper>
   );

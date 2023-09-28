@@ -1,13 +1,12 @@
 import { TabPanel } from '#ui/tabs/tads-panel';
 import { useState, useEffect } from 'react';
-import Post from '#ui/post1/post1';
 import Post2 from '#ui/post2/post2';
 import Post3 from '#ui/post3/post3';
 import styled from 'styled-components';
 import image1 from '../../Space_Milky_way_and_bright_night_stars_in_the_sky_159566_33.jpg';
 import { TabPanel2 } from '#ui/tabs/tabs-down';
 
-export const BlogContext: React.FC = () => {
+export const BlogContext2: React.FC = () => {
   const tabItems = [
     { id: '1', title: 'All' },
     { id: '2', title: 'My favorites' },
@@ -25,27 +24,14 @@ export const BlogContext: React.FC = () => {
   const [activeTabId, setActiveTabId] = useState(tabItems[0].id);
   const [activeNumberId, setActiveNumberId] = useState(tabNumber[0].id);
 
-  const post1Count = 1;
-  const post2Count = 4;
+  const post2Count = 6;
   const post3Count = 6;
 
-  const [post1Data, setPost1Data] = useState<any[] | null>(null);
   const [post2Data, setPost2Data] = useState<any[] | null>(null);
   const [post3Data, setPost3Data] = useState<any[] | null>(null);
 
   useEffect(() => {
     setTimeout(() => {
-      const postData1 = Array.from({ length: post1Count }, (_, index) => ({
-        id: index + 1,
-        image: image1,
-        text: 'Post content here...Post content here...Post content here...Post content here...Post content here...Post content here...',
-        date: '2023-08-31',
-        lesson_num: index + 1,
-        title:
-          'Example Post Example Post Example Post Example Post Example Post Example Post Example Post Example Post',
-        author: index + 1,
-      }));
-
       const postData2 = Array.from({ length: post2Count }, (_, index) => ({
         id: index + 1,
         image: image1,
@@ -66,7 +52,6 @@ export const BlogContext: React.FC = () => {
         author: index + 1,
       }));
 
-      setPost1Data(postData1);
       setPost2Data(postData2);
       setPost3Data(postData3);
     }, 300);
@@ -80,24 +65,18 @@ export const BlogContext: React.FC = () => {
         onTabClick={setActiveTabId}
       />
       <PostWrapper>
-        <RightWrapper>
-          {post1Data &&
-            post1Data.map((postData, index) => (
-              <Post key={index} {...postData} />
+        <PostMiddleWrapper>
+          {post2Data &&
+            post2Data.map((postData, index) => (
+              <Post2 key={index} {...postData} />
             ))}
-          <PostMiddleWrapper>
-            {post2Data &&
-              post2Data.map((postData, index) => (
-                <Post2 key={index} {...postData} />
-              ))}
-          </PostMiddleWrapper>
-        </RightWrapper>
-        <LeftWrapper>
+        </PostMiddleWrapper>
+        <PostsmallWrapper>
           {post3Data &&
             post3Data.map((postData, index) => (
               <Post3 key={index} {...postData} />
             ))}
-        </LeftWrapper>
+        </PostsmallWrapper>
       </PostWrapper>
       <TabPanel2
         numbers={tabNumber}
@@ -116,19 +95,15 @@ const PostWrapper = styled.div`
   justify-content: center;
 `;
 
-const RightWrapper = styled.div`
-  display: grid;
-  align-items: stretch;
-  justify-content: center;
-`;
 const PostMiddleWrapper = styled.div`
   display: grid;
+  align-items: stretch;
   grid-template-columns: repeat(2, 400px);
 `;
 
-const LeftWrapper = styled.div`
+const PostsmallWrapper = styled.div`
   display: grid;
   align-items: stretch;
 `;
 
-export default BlogContext;
+export default BlogContext2;

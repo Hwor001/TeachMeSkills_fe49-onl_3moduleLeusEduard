@@ -75,7 +75,7 @@ export const Header: React.FC<Props> = () => {
       </Button4>
       <Logo username={`${savedName}  ${savedLastName}`} />
       <LogoWrapper>
-        {showLogo && <Logo username={`${savedName}  ${savedLastName}`} />}
+        {showLogo && <Logo username={`${savedName} ${savedLastName}`} />}
       </LogoWrapper>
     </HeaderWrapper>
   );
@@ -117,7 +117,7 @@ const HeaderWrapper = styled.div`
 
 const LogoWrapper = styled.div`
   display: flex;
-  transform: translate3d(0px, 44px, 0px);
+  transform: translate3d(0px, 64px, 0px);
   position: absolute;
 `;
 
@@ -127,7 +127,7 @@ const SeachWrapper = styled.div`
   input {
     width: -webkit-fill-available;
     background-color: #4949b1;
-    padding: 13px 0;
+    padding: 23px 0;
     color: white;
     &::placeholder {
       color: silver;
@@ -137,7 +137,7 @@ const SeachWrapper = styled.div`
 
 const BlueRectangle = styled.div`
   width: -webkit-fill-available;
-  height: 43.48px;
+  height: 63.48px;
   background-color: blue;
 `;
 
