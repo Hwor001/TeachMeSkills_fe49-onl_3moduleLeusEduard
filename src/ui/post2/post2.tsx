@@ -7,6 +7,7 @@ import PostPreviewPopup from '#features/postactive/PostPreviewPopup';
 import { Post } from '../../features/auth/types';
 import { selectImage } from '#features/postactive/Image.slice';
 import { PostImagePopup } from '#features/postactive/PostImagePopus';
+import { Button9 } from '#ui/button2/button9';
 
 const Post2: React.FC<Post> = (props) => {
   const [isPreviewVisible, setPreviewVisible] = useState(false);
@@ -49,12 +50,12 @@ const Post2: React.FC<Post> = (props) => {
     <PostWrapper>
       <PostWrapper2>
         <PostWrapper3>
+          <Button9 onClick={handleImageClick}>
+            <PostImg>{image && <img src={image} alt={`Post ${id}`} />}</PostImg>
+          </Button9>
           <p>{date}</p>
-          <h3>{truncateText(title, 25)}</h3>
+          <h3>{truncateText(title, 80)}</h3>
         </PostWrapper3>
-        <button onClick={handleImageClick}>
-          <PostImg>{image && <img src={image} alt={`Post ${id}`} />}</PostImg>
-        </button>
       </PostWrapper2>
       <PanelPost />
       <button onClick={handlePreviewClick}>Review</button>
@@ -120,7 +121,7 @@ const WhiteSquare = styled.div`
 `;
 
 const PostImg = styled.div`
-  width: 354px;
+  width: 370px;
   img {
     width: -webkit-fill-available;
   }
