@@ -1,13 +1,16 @@
 import { TabPanel } from '#ui/tabs/tads-panel';
 import { useState, useEffect } from 'react';
-import Post from '#ui/post1/post1';
+import { Post } from '../../features/auth/types';
+import Post1 from '#ui/post1/post1';
 import Post2 from '#ui/post2/post2';
 import Post3 from '#ui/post3/post3';
 import styled from 'styled-components';
 import image1 from '../../Space_Milky_way_and_bright_night_stars_in_the_sky_159566_33.jpg';
 import { TabPanel2 } from '#ui/tabs/tabs-down';
+import { useNavigate } from 'react-router-dom';
 
 export const BlogContext: React.FC = () => {
+  const navigate = useNavigate();
   const tabItems = [
     { id: '1', title: 'All' },
     { id: '2', title: 'My favorites' },
@@ -35,36 +38,45 @@ export const BlogContext: React.FC = () => {
 
   useEffect(() => {
     setTimeout(() => {
-      const postData1 = Array.from({ length: post1Count }, (_, index) => ({
-        id: index + 1,
-        image: image1,
-        text: 'Post content here...Post content here...Post content here...Post content here...Post content here...Post content here...',
-        date: '2023-08-31',
-        lesson_num: index + 1,
-        title:
-          'Example Post Example Post Example Post Example Post Example Post Example Post Example Post Example Post',
-        author: index + 1,
-      }));
+      const postData1: Post[] = Array.from(
+        { length: post1Count },
+        (_, index) => ({
+          id: index + 1,
+          image: image1,
+          text: 'Post content here...Post content here...Post content here...Post content here...Post content here...Post content here...',
+          date: '2023-08-31',
+          lesson_num: index + 1,
+          title:
+            'Example Post Example Post Example Post Example Post Example Post Example Post Example Post Example Post',
+          author: index + 1,
+        })
+      );
 
-      const postData2 = Array.from({ length: post2Count }, (_, index) => ({
-        id: index + 1,
-        image: image1,
-        text: 'Post content here...',
-        date: '2023-08-31',
-        lesson_num: index + 1,
-        title: 'Example Post Example Post Example Post Example Post',
-        author: index + 1,
-      }));
+      const postData2: Post[] = Array.from(
+        { length: post2Count },
+        (_, index) => ({
+          id: index + 1,
+          image: image1,
+          text: 'Post content here...',
+          date: '2023-08-31',
+          lesson_num: index + 1,
+          title: 'Example Post Example Post Example Post Example Post',
+          author: index + 1,
+        })
+      );
 
-      const postData3 = Array.from({ length: post3Count }, (_, index) => ({
-        id: index + 1,
-        image: image1,
-        text: 'Post content here...',
-        date: '2023-08-31',
-        lesson_num: index + 1,
-        title: 'Example Post Example Post Example Post Example Post',
-        author: index + 1,
-      }));
+      const postData3: Post[] = Array.from(
+        { length: post3Count },
+        (_, index) => ({
+          id: index + 1,
+          image: image1,
+          text: 'Post content here...',
+          date: '2023-08-31',
+          lesson_num: index + 1,
+          title: 'Example Post Example Post Example Post Example Post',
+          author: index + 1,
+        })
+      );
 
       setPost1Data(postData1);
       setPost2Data(postData2);
@@ -83,7 +95,7 @@ export const BlogContext: React.FC = () => {
         <RightWrapper>
           {post1Data &&
             post1Data.map((postData, index) => (
-              <Post key={index} {...postData} />
+              <Post1 key={index} {...postData} />
             ))}
           <PostMiddleWrapper>
             {post2Data &&
@@ -102,7 +114,12 @@ export const BlogContext: React.FC = () => {
       <TabPanel2
         numbers={tabNumber}
         activeId={activeNumberId}
-        onTabClick={setActiveNumberId}
+        onTabClick={(activeId) => {
+          setActiveNumberId(activeId);
+          if (activeId === '2') {
+            navigate('/blog2');
+          }
+        }}
       />
     </AllPostAndPanelWrapper>
   );
@@ -127,7 +144,7 @@ const PostMiddleWrapper = styled.div`
 `;
 
 const LeftWrapper = styled.div`
-  display: grid
+  display: grid;
   align-items: stretch;
 `;
 
