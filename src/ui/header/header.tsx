@@ -18,14 +18,14 @@ interface Props {
 }
 
 export const Header: React.FC<Props> = ({ handleSearch }) => {
+  const name = 'Leus Eduard';
   const navigate = useNavigate();
   const [showLogo, setShowLogo] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [inputValue, setInputValue] = useState('');
   const [isMouseOver, setIsMouseOver] = useState(false);
   const [showNameAndLastName, setShowNameAndLastName] = useState(true);
-  const savedName = localStorage.getItem('name') || '';
-  const savedLastName = localStorage.getItem('lastname') || '';
+  const savedName = name || '';
 
   const toggleLogo = () => {
     document.documentElement.style.setProperty(
@@ -122,10 +122,8 @@ export const Header: React.FC<Props> = ({ handleSearch }) => {
       <Button4 onClick={handleSearchButtonClick}>
         <FontAwesomeIcon icon={faSearch} />
       </Button4>
-      {savedName || savedLastName ? (
-        <Logo
-          username={showNameAndLastName ? `${savedName} ${savedLastName}` : ''}
-        />
+      {savedName ? (
+        <Logo username={showNameAndLastName ? name : ''} />
       ) : (
         <Button7 onClick={buttonfaUser}>
           <FontAwesomeIcon icon={faUser} />
@@ -133,14 +131,10 @@ export const Header: React.FC<Props> = ({ handleSearch }) => {
       )}
       {showLogo && (
         <BurgerMenuWrapper>
-          {savedName && savedLastName ? (
+          {savedName ? (
             <>
               <LogoWrapper>
-                <Logo
-                  username={
-                    showNameAndLastName ? `${savedName} ${savedLastName}` : ''
-                  }
-                />
+                <Logo username={showNameAndLastName ? name : ''} />
                 <Button9 onClick={buttonHome}>Home</Button9>
                 <Button8 onClick={buttonAddPost}>Add post</Button8>
               </LogoWrapper>
@@ -211,6 +205,7 @@ const BurgerMenuWrapper = styled.div`
   display: grid;
   align-items: start;
   align-content: space-between;
+  z-index: 1;
 `;
 
 const LogoWrapper = styled.div`

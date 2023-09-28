@@ -1,64 +1,38 @@
 import { Button } from '#ui/button';
 import { Input } from '#ui/input/input';
 import styled from 'styled-components';
-import { setName } from './sing-up-form-slice';
+import {
+  setName,
+  setEmail,
+  setPassword,
+  setConfirmedPassword,
+} from './sing-up-form.slice';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { useRef, useState } from 'react';
+import { useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { register } from '../auth/registration.slice';
 
 export const SingUpForm: React.FC = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const nameInputRef = useRef<HTMLInputElement | null>(null);
-  const lastnameInputRef = useRef<HTMLInputElement | null>(null);
   const emailInputRef = useRef<HTMLInputElement | null>(null);
   const passwordInputRef = useRef<HTMLInputElement | null>(null);
   const confirmedPasswordInputRef = useRef<HTMLInputElement | null>(null);
-  const name = useAppSelector(({ singUpForm }) => singUpForm.name);
-  const [email, setEmail] = useState('');
-  const [lastname, setLastname] = useState('');
-  const [password, setPassword] = useState('');
-  const [confirmedPassword, setConfirmedPassword] = useState('');
-  const [registrationError, setRegistrationError] = useState<string | null>(
-    null
+  const name = useAppSelector(({ signUpForm }) => signUpForm.name);
+  const email = useAppSelector(({ signUpForm }) => signUpForm.email);
+  const password = useAppSelector(({ signUpForm }) => signUpForm.password);
+  const confirmedPassword = useAppSelector(
+    ({ signUpForm }) => signUpForm.confirmedPassword
   );
-
-  const handleRegistration = () => {
-    if (!name || !email || !password || !confirmedPassword) {
-      setRegistrationError('All fields are required');
-      setTimeout(() => {
-        setRegistrationError(null);
-      }, 2000);
-      return;
+  const isCompleted = useAppSelector(
+    ({ registration }) => registration.isCompleted
+  );
+  useEffect(() => {
+    if (isCompleted) {
+      navigate('/registration');
     }
-
-    if (password !== confirmedPassword) {
-      setRegistrationError('Passwords do not match');
-      setTimeout(() => {
-        setRegistrationError(null);
-      }, 2000);
-      return;
-    }
-
-    setRegistrationError(null);
-
-    localStorage.setItem('name', name);
-    localStorage.setItem('lastname', lastname);
-    localStorage.setItem('email', email);
-    localStorage.setItem('password', password);
-
-    setName('');
-    setLastname('');
-    setEmail('');
-    setPassword('');
-    setConfirmedPassword('');
-    // nameInputRef.current?.focus();
-    // lastnameInputRef.current?.focus();
-    // emailInputRef.current?.focus();
-    // passwordInputRef.current?.focus();
-    // confirmedPasswordInputRef.current?.focus();
-    navigate('/registration');
-  };
+  }, [isCompleted, navigate]);
 
   return (
     <RegistrationWrapper>
@@ -70,18 +44,12 @@ export const SingUpForm: React.FC = () => {
         ref={nameInputRef}
       />
       <Input
-        type="text"
-        labelText="Last name"
-        value={lastname}
-        onChange={({ currentTarget }) => setLastname(currentTarget.value)}
-        error={email ? undefined : `Last name is not required`}
-        ref={lastnameInputRef}
-      />
-      <Input
         type="email"
         labelText="Email"
         value={email}
-        onChange={({ currentTarget }) => setEmail(currentTarget.value)}
+        onChange={({ currentTarget }) =>
+          dispatch(setEmail(currentTarget.value))
+        }
         error={email ? undefined : `Email shoudn't be empty`}
         ref={emailInputRef}
       />
@@ -89,7 +57,9 @@ export const SingUpForm: React.FC = () => {
         type="password"
         labelText="Password"
         value={password}
-        onChange={({ currentTarget }) => setPassword(currentTarget.value)}
+        onChange={({ currentTarget }) =>
+          dispatch(setPassword(currentTarget.value))
+        }
         ref={passwordInputRef}
       />
       <Input
@@ -97,14 +67,16 @@ export const SingUpForm: React.FC = () => {
         labelText="Confirm password"
         value={confirmedPassword}
         onChange={({ currentTarget }) =>
-          setConfirmedPassword(currentTarget.value)
+          dispatch(setConfirmedPassword(currentTarget.value))
         }
         ref={confirmedPasswordInputRef}
       />
-      <Button variant="primary" onClick={handleRegistration}>
-        Sing up
+      <Button
+        variant="primary"
+        onClick={() => dispatch(register({ username: name, password }))}
+      >
+        Sign Up
       </Button>
-      {registrationError && <ErrorWrapper>{registrationError}</ErrorWrapper>}
     </RegistrationWrapper>
   );
 };
@@ -112,11 +84,4 @@ export const SingUpForm: React.FC = () => {
 const RegistrationWrapper = styled.div`
   border: 1px solid var(--text-primary-color);
   padding: 40px;
-`;
-
-const ErrorWrapper = styled.p`
-  color: red;
-  font-weight: bold;
-  margin-top: 5px;
-  width: 181px;
 `;

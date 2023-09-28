@@ -1,18 +1,17 @@
-import React from 'react';
+import { useState } from 'react';
 import styled from 'styled-components';
 import PanelPost from '../panelpost/panelpost';
+import { useDispatch } from 'react-redux';
+import { selectPost } from '../../features/postactive/Post.slice';
+import PostPreviewPopup from '#features/postactive/PostPreviewPopup';
+import { Post } from '../../features/auth/types';
+import { selectImage } from '#features/postactive/Image.slice';
+import { PostImagePopup } from '#features/postactive/PostImagePopus';
 
-interface Props {
-  id: number;
-  image?: string;
-  text: string;
-  date: string;
-  lesson_num: number;
-  title: string;
-  author: number;
-}
-
-const Post: React.FC<Props> = (props) => {
+const Post1: React.FC<Post> = (props) => {
+  const [isPreviewVisible, setPreviewVisible] = useState(false);
+  const [isImageVisible, setImageVisible] = useState(false);
+  const dispatch = useDispatch();
   const { id, image, text, date, lesson_num, title, author } = props;
 
   function truncateText(title: string, maxChars: number): string {
@@ -23,20 +22,67 @@ const Post: React.FC<Props> = (props) => {
     return `${truncatedText}...`;
   }
 
+  const handlePreviewClick = () => {
+    const selectedPostData = {
+      id: id,
+      image: image,
+      text: text,
+      date: date,
+      lesson_num: lesson_num,
+      title: title,
+      author: author,
+    };
+    dispatch(selectPost(selectedPostData));
+    setPreviewVisible(true);
+  };
+
+  const handleImageClick = () => {
+    const selectedImageData = {
+      id: id,
+      image: image,
+    };
+    dispatch(selectImage(selectedImageData));
+    setImageVisible(true);
+  };
+
   return (
     <PostWrapper>
       <PostWrapper2>
         <PostWrapper3>
           <p>{date}</p>
-          <h2>{truncateText(title, 80)}</h2>
-          <p>{text}</p>
+          <h3>{truncateText(title, 25)}</h3>
         </PostWrapper3>
-        <PostImg>{image && <img src={image} alt={`Post ${id}`} />}</PostImg>
+        <button onClick={handleImageClick}>
+          <PostImg>{image && <img src={image} alt={`Post ${id}`} />}</PostImg>
+        </button>
       </PostWrapper2>
       <PanelPost />
+      <button onClick={handlePreviewClick}>Review</button>
+      {isImageVisible && (
+        <RedSquare>
+          <PostImagePopup
+            isImageVisible={isImageVisible}
+            setImageVisible={setImageVisible}
+          />
+        </RedSquare>
+      )}
+      {isPreviewVisible && (
+        <BackGround>
+          <WhiteSquare>
+            <PostPreviewPopup
+              isPreviewVisible={isPreviewVisible}
+              setPreviewVisible={setPreviewVisible}
+            />
+          </WhiteSquare>
+        </BackGround>
+      )}
     </PostWrapper>
   );
 };
+
+const BackGround = styled.div`
+  background-color: black;
+`;
 
 const PostWrapper = styled.div`
   color: black;
@@ -71,4 +117,24 @@ const PostImg = styled.div`
   }
 `;
 
-export default Post;
+const WhiteSquare = styled.div`
+  width: 800px;
+  height: 260px;
+  background-color: red;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+`;
+
+const RedSquare = styled.div`
+  width: 800px;
+  height: 460px;
+  background-color: red;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+`;
+
+export default Post1;

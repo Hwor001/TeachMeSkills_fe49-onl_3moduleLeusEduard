@@ -67,14 +67,6 @@ export function Root() {
           />
         </Route>
       </Routes>
-      {/* <SingUp />
-      <Registration />
-      <SingIn />
-      <Success />
-      <SelectPost />
-      <Blog />
-      <Blog2 />
-      <SeachPost /> */}
     </div>
   );
 }
