@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import { useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { Button } from '../../ui/button2/button';
 import { Button2 } from '../../ui/button2/button2';
@@ -16,27 +15,6 @@ export const LikeDislike: React.FC<Props> = ({ id }) => {
   const rating = useAppSelector((state) => state.likeDislike[id]);
   const activeLike = rating?.userChoice === 'like' || false;
   const activeDislike = rating?.userChoice === 'dislike' || false;
-  const [iconColor, setIconColor] = useState('var(--text-primary-color)');
-  const [iconColor2, setIconColor2] = useState('var(--text-primary-color)');
-  //   const handleLikeClick = () => {
-  //     if (activeLike) {
-  //       dispatch(setActiveDislike({ id }));
-  //       setIconColor('var(--text-primary-color)');
-  //       setIconColor2('var(--text-primary-color)');
-  //     } else {
-  //       dispatch(setActiveLike({ id }));
-  //       setIconColor('red');
-  //     }
-  //   };
-
-  //   const handleDislikeClick = () => {
-  //     if (activeDislike) {
-  //       setIconColor('var(--text-primary-color)');
-  //       setIconColor2('var(--text-primary-color)');
-  //     } else {
-  //       setIconColor2('blue');
-  //     }
-  //   };
 
   return (
     <div>
@@ -47,7 +25,7 @@ export const LikeDislike: React.FC<Props> = ({ id }) => {
       >
         <FontAwesomeIcon
           icon={faThumbsUp}
-          style={{ color: activeLike ? 'red' : iconColor }}
+          style={{ color: activeLike ? 'red' : 'var(--text-primary-color)' }}
         />
       </Button>
       <NomberWrapper>{rating?.likes || 0}</NomberWrapper>
@@ -58,7 +36,9 @@ export const LikeDislike: React.FC<Props> = ({ id }) => {
       >
         <FontAwesomeIcon
           icon={faThumbsDown}
-          style={{ color: activeDislike ? 'blue' : iconColor2 }}
+          style={{
+            color: activeDislike ? 'blue' : 'var(--text-primary-color)',
+          }}
         />
       </Button2>
       <NomberWrapper>{rating?.dislikes || 0}</NomberWrapper>
