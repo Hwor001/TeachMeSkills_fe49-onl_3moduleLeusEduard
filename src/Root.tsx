@@ -10,7 +10,7 @@ import { Success } from '#ui/pages/success';
 import styled from 'styled-components';
 import { SeachPost } from '#ui/pages/seachpost';
 import { useTheme } from './ui/theme/themeContext';
-import { Blog2 } from '#ui/pages/blog2';
+// import { Blog2 } from '#ui/pages/blog2';
 import { Link, Route, Routes, useNavigate } from 'react-router-dom';
 
 export function Root() {
@@ -61,10 +61,10 @@ export function Root() {
             }
           />
           <Route path="/blog" element={<Blog handleSearch={handleSearch} />} />
-          <Route
+          {/* <Route
             path="/blog2"
             element={<Blog2 handleSearch={handleSearch} />}
-          />
+          /> */}
         </Route>
       </Routes>
     </div>

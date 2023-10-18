@@ -5,7 +5,7 @@ export type RegistrationPayload = {
 
 export interface Post {
   id: number;
-  image?: string;
+  image: any;
   text: string;
   date: string;
   lesson_num: number;

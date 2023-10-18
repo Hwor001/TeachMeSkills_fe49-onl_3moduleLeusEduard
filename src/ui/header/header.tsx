@@ -229,7 +229,7 @@ const SeachWrapper = styled.div`
 
 const BlueRectangle = styled.div`
   width: -webkit-fill-available;
-  height: 63.48px;
+  height: 64.48px;
   background-color: blue;
 `;
 

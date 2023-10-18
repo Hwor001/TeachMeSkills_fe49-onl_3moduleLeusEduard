@@ -69,8 +69,6 @@ const TitleConteiner = styled.div`
 
 const BodyConteiner = styled.div`
   width: 100%;
-  display: flex;
-  justify-content: center;
 `;
 
 const Footer = styled.footer`

@@ -1,60 +1,48 @@
 import { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {
-  faThumbsUp,
-  faThumbsDown,
-  faBookmark,
-  faEllipsis,
-} from '@fortawesome/free-solid-svg-icons';
+import { faBookmark, faEllipsis } from '@fortawesome/free-solid-svg-icons';
 import styled from 'styled-components';
-import { Button } from '../button2/button';
-import { Button2 } from '../button2/button2';
 import { Button3 } from '../button2/button3';
 import { Button4 } from '../button2/button4';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  addToFavorites,
+  removeFromFavorites,
+} from '../../features/postactive/favoritePostsSlice';
+import { Post } from '../../features/auth/types';
+import { LikeDislike } from '#features/like-dislike/like-dislike';
+// import { RootState } from '../../store1';
 
-interface Props {}
+interface Props {
+  post: Post;
+}
 
-const PanelPost: React.FC<Props> = () => {
-  const [like, setLiked] = useState(false);
-  const [Dislike, setDisliked] = useState(false);
+const PanelPost: React.FC<Props> = ({ post }) => {
+  const dispatch = useDispatch();
   const [Flag, setFlag] = useState(false);
   const [MoreVisible, setMoreVisible] = useState(false);
-  const [likeClicked, setLikeClicked] = useState(false);
-  const [iconColor, setIconColor] = useState('var(--text-primary-color)');
-  const [iconColor2, setIconColor2] = useState('var(--text-primary-color)');
   const [iconColor3, setIconColor3] = useState('var(--text-primary-color)');
   const [iconColor4, setIconColor4] = useState('var(--text-primary-color)');
 
-  const handleLikeClick = () => {
-    if (likeClicked) {
-      setLiked(false);
-      setIconColor('var(--text-primary-color)');
-    } else {
-      setLiked(true);
-      setIconColor('red');
-    }
-    setLikeClicked(!likeClicked);
+  const somePostData = {
+    id: post.id,
+    image: post.image,
+    text: post.text,
+    date: post.date,
+    lesson_num: post.lesson_num,
+    title: post.title,
+    author: post.author,
   };
-  const likeCount = like ? 28 : 27;
-
-  const handleDislikeClick = () => {
-    if (Dislike) {
-      setDisliked(false);
-      setIconColor2('var(--text-primary-color)');
-    } else {
-      setDisliked(true);
-      setIconColor2('red');
-    }
-  };
-  const DislikeCount = Dislike ? 9 : 8;
 
   const handFlagClick = () => {
     if (Flag) {
       setFlag(false);
       setIconColor3('var(--text-primary-color)');
+      dispatch(removeFromFavorites(somePostData));
     } else {
       setFlag(true);
       setIconColor3('red');
+      dispatch(addToFavorites(somePostData));
     }
   };
 
@@ -70,16 +58,7 @@ const PanelPost: React.FC<Props> = () => {
 
   return (
     <ButtonWrapper>
-      <div>
-        <Button onClick={handleLikeClick}>
-          <FontAwesomeIcon icon={faThumbsUp} style={{ color: iconColor }} />
-        </Button>
-        <NomberWrapper>{likeCount}</NomberWrapper>
-        <Button2 onClick={handleDislikeClick}>
-          <FontAwesomeIcon icon={faThumbsDown} style={{ color: iconColor2 }} />
-        </Button2>
-        <NomberWrapper>{DislikeCount}</NomberWrapper>
-      </div>
+      <LikeDislike id={post.id} />
       <FlagMoreVisible>
         <Button3 onClick={handFlagClick}>
           <FontAwesomeIcon icon={faBookmark} style={{ color: iconColor3 }} />

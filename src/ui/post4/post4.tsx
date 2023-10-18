@@ -37,6 +37,16 @@ const Post4: React.FC<Post> = (props) => {
     setPreviewVisible(true);
   };
 
+  const somePostData = {
+    id: id,
+    image: image,
+    text: text,
+    date: date,
+    lesson_num: lesson_num,
+    title: title,
+    author: author,
+  };
+
   const handleImageClick = () => {
     const selectedImageData = {
       id: id,
@@ -57,7 +67,7 @@ const Post4: React.FC<Post> = (props) => {
           <PostImg>{image && <img src={image} alt={`Post ${id}`} />}</PostImg>
         </Button9>
       </PostWrapper2>
-      <PanelPost />
+      <PanelPost post={somePostData} />
       <button onClick={handlePreviewClick}>Review</button>
       {isImageVisible && (
         <RedSquare>
@@ -71,6 +81,15 @@ const Post4: React.FC<Post> = (props) => {
         <BackGround>
           <WhiteSquare>
             <PostPreviewPopup
+              post={{
+                id,
+                image,
+                text,
+                date,
+                lesson_num,
+                title,
+                author,
+              }}
               isPreviewVisible={isPreviewVisible}
               setPreviewVisible={setPreviewVisible}
             />

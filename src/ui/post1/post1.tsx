@@ -9,11 +9,14 @@ import { selectImage } from '#features/postactive/Image.slice';
 import { PostImagePopup } from '#features/postactive/PostImagePopus';
 import { Button9 } from '#ui/button2/button9';
 
-const Post1: React.FC<Post> = (props) => {
+interface PostProps {
+  post: Post;
+}
+
+const Post1: React.FC<PostProps> = (PostProps) => {
   const [isPreviewVisible, setPreviewVisible] = useState(false);
   const [isImageVisible, setImageVisible] = useState(false);
   const dispatch = useDispatch();
-  const { id, image, text, date, lesson_num, title, author } = props;
 
   function truncateText(title: string, maxChars: number): string {
     if (title.length <= maxChars) {
@@ -25,22 +28,32 @@ const Post1: React.FC<Post> = (props) => {
 
   const handlePreviewClick = () => {
     const selectedPostData = {
-      id: id,
-      image: image,
-      text: text,
-      date: date,
-      lesson_num: lesson_num,
-      title: title,
-      author: author,
+      id: PostProps.post.id,
+      image: PostProps.post.image,
+      text: PostProps.post.text,
+      date: PostProps.post.date,
+      lesson_num: PostProps.post.lesson_num,
+      title: PostProps.post.title,
+      author: PostProps.post.author,
     };
     dispatch(selectPost(selectedPostData));
     setPreviewVisible(true);
   };
 
+  const somePostData = {
+    id: PostProps.post.id,
+    image: PostProps.post.image,
+    text: PostProps.post.text,
+    date: PostProps.post.date,
+    lesson_num: PostProps.post.lesson_num,
+    title: PostProps.post.title,
+    author: PostProps.post.author,
+  };
+
   const handleImageClick = () => {
     const selectedImageData = {
-      id: id,
-      image: image,
+      id: PostProps.post.id,
+      image: PostProps.post.image,
     };
     dispatch(selectImage(selectedImageData));
     setImageVisible(true);
@@ -50,15 +63,22 @@ const Post1: React.FC<Post> = (props) => {
     <PostWrapper>
       <PostWrapper2>
         <PostWrapper3>
-          <p>{date}</p>
-          <h2>{truncateText(title, 110)}</h2>
-          <p>{title}</p>
+          <p>{PostProps.post.date}</p>
+          <h2>{truncateText(PostProps.post.title, 110)}</h2>
+          <p>{PostProps.post.text}</p>
         </PostWrapper3>
         <Button9 onClick={handleImageClick}>
-          <PostImg>{image && <img src={image} alt={`Post ${id}`} />}</PostImg>
+          <PostImg>
+            {
+              <img
+                src={PostProps.post.image}
+                alt={`Post ${PostProps.post.id}`}
+              />
+            }
+          </PostImg>
         </Button9>
       </PostWrapper2>
-      <PanelPost />
+      <PanelPost post={somePostData} />
       <button onClick={handlePreviewClick}>Review</button>
       {isImageVisible && (
         <RedSquare>
@@ -72,6 +92,15 @@ const Post1: React.FC<Post> = (props) => {
         <BackGround>
           <WhiteSquare>
             <PostPreviewPopup
+              post={{
+                id: PostProps.post.id,
+                image: PostProps.post.image,
+                text: PostProps.post.text,
+                date: PostProps.post.date,
+                lesson_num: PostProps.post.lesson_num,
+                title: PostProps.post.title,
+                author: PostProps.post.author,
+              }}
               isPreviewVisible={isPreviewVisible}
               setPreviewVisible={setPreviewVisible}
             />
@@ -121,7 +150,6 @@ const PostImg = styled.div`
 
 const WhiteSquare = styled.div`
   width: 800px;
-  height: 260px;
   background-color: red;
   position: absolute;
   top: 50%;

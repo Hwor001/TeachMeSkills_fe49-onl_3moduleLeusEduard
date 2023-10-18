@@ -3,11 +3,18 @@ import { useSelector, useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import { clearSelectedPost } from './Post.slice';
 import { RootState } from '../../store1';
+import { Post } from '../../features/auth/types';
 
-export const PostPreviewPopup: React.FC<{
-  isPreviewVisible: boolean;
-  setPreviewVisible: (value: boolean) => void;
-}> = ({ isPreviewVisible, setPreviewVisible }) => {
+interface PostProps {
+  post: Post;
+}
+
+export const PostPreviewPopup: React.FC<
+  {
+    isPreviewVisible: boolean;
+    setPreviewVisible: (value: boolean) => void;
+  } & PostProps
+> = ({ isPreviewVisible, setPreviewVisible, post }) => {
   const selectedPost = useSelector(
     (state: RootState) => state.Post.selectedPost
   );
@@ -20,6 +27,16 @@ export const PostPreviewPopup: React.FC<{
     const truncatedText = title.substring(0, maxChars);
     return `${truncatedText}...`;
   }
+
+  const somePostData = {
+    id: post.id,
+    image: post.image,
+    text: post.text,
+    date: post.date,
+    lesson_num: post.lesson_num,
+    title: post.title,
+    author: post.author,
+  };
 
   const handleClosePopup = () => {
     dispatch(clearSelectedPost());
@@ -44,7 +61,7 @@ export const PostPreviewPopup: React.FC<{
           </PostImg>
         )}
       </PostWrapper2>
-      <PanelPost />
+      <PanelPost post={somePostData} />
     </PostWrapper>
   );
 };
