@@ -1,14 +1,11 @@
 import { TabPanel } from '#ui/tabs/tads-panel';
-// import { useSelector } from 'react-redux';
 import { useState } from 'react';
 import styled from 'styled-components';
 import { TabPanel2 } from '#ui/tabs/tabs-down';
-// import { useNavigate } from 'react-router-dom';
 import { Post } from '#features/auth/types';
 import { AllPosts } from '#ui/allpost/all-posts';
 import { BookmarkPost } from '#ui/allpost/bookmark-post';
 import { PopularPosts } from '#ui/allpost/popular-post';
-// import { RootState } from '../../store1';
 
 type ListOfPostsProps = {
   posts: Post[];
@@ -62,7 +59,9 @@ export const BlogContext: React.FC<ListOfPostsProps> = (
   );
 };
 
-const AllPostAndPanelWrapper = styled.div``;
+const AllPostAndPanelWrapper = styled.div`
+  width: -webkit-fill-available;
+`;
 
 const TabsWpapper = styled.div`
   margin-left: -100px;

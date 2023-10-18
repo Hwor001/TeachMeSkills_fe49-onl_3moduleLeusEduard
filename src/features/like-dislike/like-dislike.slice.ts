@@ -14,7 +14,7 @@ const likeDislike = createSlice({
   name: 'likeDislike',
   initialState: {
     0: {
-      likes: 0,
+      likes: 1,
       dislikes: 8,
       userChoice: 'like',
     },
