@@ -63,8 +63,6 @@ const AllPostAndPanelWrapper = styled.div`
   width: -webkit-fill-available;
 `;
 
-const TabsWpapper = styled.div`
-  margin-left: -100px;
-`;
+const TabsWpapper = styled.div``;
 
 export default BlogContext;
