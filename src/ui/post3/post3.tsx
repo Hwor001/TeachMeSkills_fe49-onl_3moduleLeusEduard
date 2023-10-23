@@ -32,6 +32,9 @@ const Post3: React.FC<PostProps> = (PostProps) => {
     text: PostProps.post.text,
     date: PostProps.post.date,
     lesson_num: PostProps.post.lesson_num,
+    likes_amount: PostProps.post.likes_amount,
+    dislikes_amount: PostProps.post.dislikes_amount,
+    user_choice: PostProps.post.user_choice,
     title: PostProps.post.title,
     author: PostProps.post.author,
   };
@@ -43,6 +46,9 @@ const Post3: React.FC<PostProps> = (PostProps) => {
       text: PostProps.post.text,
       date: PostProps.post.date,
       lesson_num: PostProps.post.lesson_num,
+      likes_amount: PostProps.post.likes_amount,
+      dislikes_amount: PostProps.post.dislikes_amount,
+      user_choice: PostProps.post.user_choice,
       title: PostProps.post.title,
       author: PostProps.post.author,
     };
@@ -97,6 +103,9 @@ const Post3: React.FC<PostProps> = (PostProps) => {
                 text: PostProps.post.text,
                 date: PostProps.post.date,
                 lesson_num: PostProps.post.lesson_num,
+                likes_amount: PostProps.post.likes_amount,
+                dislikes_amount: PostProps.post.dislikes_amount,
+                user_choice: PostProps.post.user_choice,
                 title: PostProps.post.title,
                 author: PostProps.post.author,
               }}

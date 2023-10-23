@@ -4,13 +4,8 @@ import { Title } from '#ui/title/title';
 import { Backlink } from '../../features/back-link/back-link';
 import { BlogContext } from '../../features/blog/blog';
 import { useAppDispatch, useAppSelector } from '#hooks';
-import React, { useEffect } from 'react';
-import {
-  getAllPostsFailure,
-  getAllPostsSuccess,
-  getAllposts,
-} from '../../features/postactive/all-post.slice';
-import { allPosts } from '../../Posts';
+import { useEffect } from 'react';
+import { getAllposts } from '../../features/postactive/all-post.slice';
 
 interface Props {
   handleSearch: (searchText: string) => void;
@@ -19,23 +14,9 @@ interface Props {
 export const Blog: React.FC<Props> = ({ handleSearch }) => {
   const dispatch = useAppDispatch();
   const { posts, isLoading } = useAppSelector(({ allPosts }) => allPosts);
-  useEffect(() => {
-    dispatch(getAllposts());
-  }, [dispatch]);
 
   useEffect(() => {
-    const timedId = setTimeout(() => {
-      if (Math.random() < 0.5) {
-        dispatch(getAllPostsSuccess({ posts: allPosts }));
-      } else {
-        dispatch(
-          getAllPostsFailure({ name: 'Error', message: 'SERVER ERROR' })
-        );
-      }
-    }, 3000);
-    return () => {
-      clearTimeout(timedId);
-    };
+    dispatch(getAllposts());
   }, [dispatch]);
 
   if (isLoading) {
@@ -44,6 +25,7 @@ export const Blog: React.FC<Props> = ({ handleSearch }) => {
   if (posts.length === 0) {
     return <div>Постов нет</div>;
   }
+
   return (
     <MainTemplate
       header={<Header handleSearch={handleSearch}></Header>}

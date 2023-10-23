@@ -14,20 +14,35 @@ export const AllPosts: React.FC<ListOfPostsProps> = (
   const getPostIdAndElement = (id: number) =>
     props.posts.find((item) => item.id === id);
 
+  const getHalfOfCards = (part: 'left' | 'down' | 'right'): number[] => {
+    const identifiers = props.posts.map((element) => element.id);
+
+    switch (part) {
+      case 'left':
+        return identifiers.slice(0, 1);
+      case 'down':
+        return identifiers.slice(1, 5);
+      case 'right':
+        return identifiers.slice(5, 11);
+      default:
+        return [];
+    }
+  };
+
   return (
     <PostWrapper>
       <RightWrapper>
-        {[0].map((element, id) => (
+        {getHalfOfCards('left').map((element, id) => (
           <Post1 key={id} post={getPostIdAndElement(element)!}></Post1>
         ))}
         <PostMiddleWrapper>
-          {[1, 2, 3, 4].map((element, id) => (
+          {getHalfOfCards('down').map((element, id) => (
             <Post2 key={id} post={getPostIdAndElement(element)!}></Post2>
           ))}
         </PostMiddleWrapper>
       </RightWrapper>
       <LeftWrapper>
-        {[5, 6, 7, 8, 9, 10].map((element, id) => (
+        {getHalfOfCards('right').map((element, id) => (
           <Post3 key={id} post={getPostIdAndElement(element)!}></Post3>
         ))}
       </LeftWrapper>

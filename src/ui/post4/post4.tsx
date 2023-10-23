@@ -9,11 +9,15 @@ import { selectImage } from '#features/postactive/Image.slice';
 import { PostImagePopup } from '#features/postactive/PostImagePopus';
 import { Button9 } from '#ui/button2/button9';
 
-const Post4: React.FC<Post> = (props) => {
+interface PostProps {
+  post: Post;
+}
+
+const Post4: React.FC<PostProps> = (PostProps) => {
   const [isPreviewVisible, setPreviewVisible] = useState(false);
   const [isImageVisible, setImageVisible] = useState(false);
   const dispatch = useDispatch();
-  const { id, image, text, date, lesson_num, title, author } = props;
+  // const { id, image, text, date, lesson_num, title, author } = props;
 
   function truncateText(title: string, maxChars: number): string {
     if (title.length <= maxChars) {
@@ -25,32 +29,38 @@ const Post4: React.FC<Post> = (props) => {
 
   const handlePreviewClick = () => {
     const selectedPostData = {
-      id: id,
-      image: image,
-      text: text,
-      date: date,
-      lesson_num: lesson_num,
-      title: title,
-      author: author,
+      id: PostProps.post.id,
+      image: PostProps.post.image,
+      text: PostProps.post.text,
+      date: PostProps.post.date,
+      lesson_num: PostProps.post.lesson_num,
+      likes_amount: PostProps.post.likes_amount,
+      dislikes_amount: PostProps.post.dislikes_amount,
+      user_choice: PostProps.post.user_choice,
+      title: PostProps.post.title,
+      author: PostProps.post.author,
     };
     dispatch(selectPost(selectedPostData));
     setPreviewVisible(true);
   };
 
   const somePostData = {
-    id: id,
-    image: image,
-    text: text,
-    date: date,
-    lesson_num: lesson_num,
-    title: title,
-    author: author,
+    id: PostProps.post.id,
+    image: PostProps.post.image,
+    text: PostProps.post.text,
+    date: PostProps.post.date,
+    lesson_num: PostProps.post.lesson_num,
+    likes_amount: PostProps.post.likes_amount,
+    dislikes_amount: PostProps.post.dislikes_amount,
+    user_choice: PostProps.post.user_choice,
+    title: PostProps.post.title,
+    author: PostProps.post.author,
   };
 
   const handleImageClick = () => {
     const selectedImageData = {
-      id: id,
-      image: image,
+      id: PostProps.post.id,
+      image: PostProps.post.image,
     };
     dispatch(selectImage(selectedImageData));
     setImageVisible(true);
@@ -60,11 +70,18 @@ const Post4: React.FC<Post> = (props) => {
     <PostWrapper>
       <PostWrapper2>
         <PostWrapper3>
-          <p>{date}</p>
-          <h3>{truncateText(title, 25)}</h3>
+          <p>{PostProps.post.date}</p>
+          <h3>{truncateText(PostProps.post.title, 25)}</h3>
         </PostWrapper3>
         <Button9 onClick={handleImageClick}>
-          <PostImg>{image && <img src={image} alt={`Post ${id}`} />}</PostImg>
+          <PostImg>
+            {
+              <img
+                src={PostProps.post.image}
+                alt={`Post ${PostProps.post.id}`}
+              />
+            }
+          </PostImg>
         </Button9>
       </PostWrapper2>
       <PanelPost post={somePostData} />
@@ -82,13 +99,16 @@ const Post4: React.FC<Post> = (props) => {
           <WhiteSquare>
             <PostPreviewPopup
               post={{
-                id,
-                image,
-                text,
-                date,
-                lesson_num,
-                title,
-                author,
+                id: PostProps.post.id,
+                image: PostProps.post.image,
+                text: PostProps.post.text,
+                date: PostProps.post.date,
+                lesson_num: PostProps.post.lesson_num,
+                likes_amount: PostProps.post.likes_amount,
+                dislikes_amount: PostProps.post.dislikes_amount,
+                user_choice: PostProps.post.user_choice,
+                title: PostProps.post.title,
+                author: PostProps.post.author,
               }}
               isPreviewVisible={isPreviewVisible}
               setPreviewVisible={setPreviewVisible}

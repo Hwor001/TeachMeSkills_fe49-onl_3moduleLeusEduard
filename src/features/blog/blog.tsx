@@ -62,10 +62,10 @@ export const BlogContext: React.FC<ListOfPostsProps> = (
   );
 };
 
-const AllPostAndPanelWrapper = styled.div``;
-
-const TabsWpapper = styled.div`
-  margin-left: -100px;
+const AllPostAndPanelWrapper = styled.div`
+  width: -webkit-fill-available;
 `;
+
+const TabsWpapper = styled.div``;
 
 export default BlogContext;

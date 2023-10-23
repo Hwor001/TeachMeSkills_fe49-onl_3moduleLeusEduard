@@ -4,7 +4,7 @@ import { faBookmark, faEllipsis } from '@fortawesome/free-solid-svg-icons';
 import styled from 'styled-components';
 import { Button3 } from '../button2/button3';
 import { Button4 } from '../button2/button4';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import {
   addToFavorites,
   removeFromFavorites,

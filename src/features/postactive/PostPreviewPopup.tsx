@@ -34,6 +34,9 @@ export const PostPreviewPopup: React.FC<
     text: post.text,
     date: post.date,
     lesson_num: post.lesson_num,
+    likes_amount: post.likes_amount,
+    dislikes_amount: post.dislikes_amount,
+    user_choice: post.user_choice,
     title: post.title,
     author: post.author,
   };

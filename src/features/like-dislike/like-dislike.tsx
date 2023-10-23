@@ -12,7 +12,7 @@ type Props = {
 
 export const LikeDislike: React.FC<Props> = ({ id }) => {
   const dispatch = useAppDispatch();
-  const rating = useAppSelector((state) => state.likeDislike[id]);
+  const rating = useAppSelector((state) => state.likeDislike.records[id]);
   const activeLike = rating?.userChoice === 'like' || false;
   const activeDislike = rating?.userChoice === 'dislike' || false;
 

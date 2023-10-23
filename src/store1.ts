@@ -9,6 +9,7 @@ import { rootSaga } from './sagas';
 import favoritesReducer from './features/postactive/favoritePostsSlice';
 import { registrationReducer } from '#features/auth/registration.slice';
 import { likeDislikeReducer } from './features/like-dislike/like-dislike.slice';
+import { activationReducer } from '#features/auth/activation.slice';
 
 const sagaMiddleware = createSagaMiddleware();
 
@@ -20,6 +21,7 @@ const rootReducer = combineReducers({
   signUpForm: signUpFormReducer,
   favorites: favoritesReducer,
   likeDislike: likeDislikeReducer,
+  activate: activationReducer,
 });
 
 export const store = configureStore({

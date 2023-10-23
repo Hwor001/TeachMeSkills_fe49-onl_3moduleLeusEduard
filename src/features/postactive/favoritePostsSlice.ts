@@ -17,7 +17,7 @@ const favoritePostsSlice = createSlice({
     },
     removeFromFavorites(state, action) {
       state.isFavorite = false;
-      const postIdToRemove = action.payload; // Используйте postId вместо всего объекта поста
+      const postIdToRemove = action.payload;
       state.favorites = state.favorites.filter(
         (post) => post.id !== postIdToRemove
       );

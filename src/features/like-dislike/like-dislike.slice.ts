@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { Post, UserChoice } from '../auth/types';
 
 type Payload = {
   id: number;
@@ -7,71 +8,31 @@ type Payload = {
 type Rating = {
   likes: number;
   dislikes: number;
-  userChoice: 'like' | 'dislike' | null;
+  userChoice: UserChoice;
+};
+
+const mapPostsToRatings = (posts: Post[]): Record<number, Rating> => {
+  return posts.reduce((accumulator, value, index) => {
+    return {
+      ...accumulator,
+      [value.id]: {
+        likes: value.likes_amount,
+        dislikes: value.dislikes_amount,
+        userChoice: value.user_choice,
+      } as Rating,
+    };
+  }, {});
 };
 
 const likeDislike = createSlice({
   name: 'likeDislike',
-  initialState: {
-    0: {
-      likes: 0,
-      dislikes: 8,
-      userChoice: 'like',
-    },
-    1: {
-      likes: 18,
-      dislikes: 3,
-      userChoice: 'like',
-    },
-    2: {
-      likes: 15,
-      dislikes: 7,
-      userChoice: 'like',
-    },
-    3: {
-      likes: 19,
-      dislikes: 9,
-      userChoice: 'dislike',
-    },
-    4: {
-      likes: 21,
-      dislikes: 13,
-      userChoice: 'like',
-    },
-    5: {
-      likes: 27,
-      dislikes: 4,
-      userChoice: 'like',
-    },
-    6: {
-      likes: 17,
-      dislikes: 9,
-      userChoice: 'dislike',
-    },
-    7: {
-      likes: 16,
-      dislikes: 2,
-      userChoice: 'like',
-    },
-    8: {
-      likes: 31,
-      dislikes: 3,
-      userChoice: 'like',
-    },
-    9: {
-      likes: 15,
-      dislikes: 12,
-      userChoice: 'like',
-    },
-    10: {
-      likes: 27,
-      dislikes: 22,
-      userChoice: 'dislike',
-    },
-  } as Record<number, Rating>,
+  initialState: { records: {} as Record<number, Rating> },
   reducers: {
+    setRatings(state, action: { payload: Post[] }) {
+      state.records = mapPostsToRatings(action.payload);
+    },
     setActiveLike(state, action: { payload: Payload }) {
-      const data = state[action.payload.id];
+      const data = state.records[action.payload.id];
       if (!data) return;
       if (data.userChoice === 'like') {
         data.likes--;
@@ -85,7 +46,7 @@ const likeDislike = createSlice({
       data.userChoice = 'like';
     },
     setActiveDislike(state, action: { payload: Payload }) {
-      const data = state[action.payload.id];
+      const data = state.records[action.payload.id];
       if (!data) return;
       if (data.userChoice === 'dislike') {
         data.dislikes--;
@@ -98,15 +59,10 @@ const likeDislike = createSlice({
       data.dislikes++;
       data.userChoice = 'dislike';
     },
-    init(state, action: { payload: Record<number, Rating> }) {
-      Object.entries(action.payload).forEach(
-        ([id, rating]) => (state[+id] = rating)
-      );
-    },
   },
 });
 
 export const {
-  actions: { setActiveLike, setActiveDislike, init },
+  actions: { setRatings, setActiveLike, setActiveDislike },
   reducer: likeDislikeReducer,
 } = likeDislike;
