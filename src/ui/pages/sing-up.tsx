@@ -4,10 +4,14 @@ import { Title } from '#ui/title/title';
 import { Backlink } from '../../features/back-link/back-link';
 import { SingUpForm } from '../../features/sing-up-form/sing-up-form';
 
-export const SingUp: React.FC = () => {
+interface Props {
+  handleSearch: (searchText: string) => void;
+}
+
+export const SingUp: React.FC<Props> = ({ handleSearch }) => {
   return (
     <MainTemplate
-      header={<Header></Header>}
+      header={<Header handleSearch={handleSearch}></Header>}
       backLink={<Backlink />}
       title={<Title>Sing Up</Title>}
       body={<SingUpForm />}

@@ -1,19 +1,26 @@
+import React, { forwardRef, InputHTMLAttributes, Ref } from 'react';
 import styled from 'styled-components';
 
-type Props = React.InputHTMLAttributes<HTMLInputElement> & {
+type Props = InputHTMLAttributes<HTMLInputElement> & {
   labelText: string;
   error?: string;
 };
 
-export const Input: React.FC<Props> = ({ labelText, error, ...restProps }) => {
-  return (
-    <Label>
-      <LabelText>{labelText}</LabelText>
-      <InputWrapper $borderColor={error ? 'red' : undefined} {...restProps} />
-      <Error>{error}</Error>
-    </Label>
-  );
-};
+export const Input = forwardRef(
+  ({ labelText, error, ...restProps }: Props, ref: Ref<HTMLInputElement>) => {
+    return (
+      <Label>
+        <LabelText>{labelText}</LabelText>
+        <InputWrapper
+          $borderColor={error ? 'red' : undefined}
+          {...restProps}
+          ref={ref as React.RefObject<HTMLInputElement>}
+        />
+        <Error>{error}</Error>
+      </Label>
+    );
+  }
+);
 
 const Label = styled.label`
   display: block;
@@ -32,7 +39,7 @@ const InputWrapper = styled.input<{ $borderColor?: string }>`
   all: unset;
   width: 544px;
   box-sizing: border-box;
-  border: 1px solid var(--border-color)};
+  border: 1px solid var(--border-color);
 
   &:focus-visible {
     border: 1px solid ${({ $borderColor }) => $borderColor || '#CCCCCCCC'};
