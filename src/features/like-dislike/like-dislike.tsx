@@ -25,7 +25,7 @@ export const LikeDislike: React.FC<Props> = ({ id }) => {
       >
         <FontAwesomeIcon
           icon={faThumbsUp}
-          style={{ color: activeLike ? 'red' : 'var(--text-primary-color)' }}
+          style={{ color: activeLike ? 'green' : 'var(--text-primary-color)' }}
         />
       </Button>
       <NomberWrapper>{rating?.likes || 0}</NomberWrapper>
