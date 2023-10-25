@@ -1,19 +1,33 @@
 import styled from 'styled-components';
-import image1 from '../../Space_Milky_way_and_bright_night_stars_in_the_sky_159566_33.jpg';
 import { Button8 } from '#ui/button2/button8';
 import { Button7 } from '#ui/button/button7';
+import { RootState } from '../../store1';
+import { useSelector } from 'react-redux';
+import PanelPost from '../../ui/panelpost/panelpost';
+import { Post } from '../auth/types';
 
-export const AllPostFrom: React.FC = () => {
-  const postData = () => ({
-    id: 1,
-    image: image1,
-    text: 'Post content here...Post content here...Post content here...Post content here...Post content here...Post content here...Post content here...Post content here...Post content here...Post content here...Post content here...Post content here...Post content here...Post content here...Post content here...Post content here...Post content here...Post content here...Post content here...Post content here...Post content here...Post content here...Post content here...Post content here...Post content here...Post content here...Post content here...Post content here...Post content here...Post content here...',
-    date: '2023-08-31',
-    lesson_num: 1,
-    title:
-      'Example Post Example Post Example Post Example Post Example Post Example Post Example Post Example Post',
-    author: 1,
-  });
+interface PostProps {
+  posts: Post[];
+  post: Post;
+}
+
+export const AllPostFrom: React.FC<PostProps> = (PostProps) => {
+  const selectedPost = useSelector(
+    (state: RootState) => state.Post.selectedPost
+  );
+
+  const somePostData = {
+    id: selectedPost?.id || 0,
+    image: selectedPost?.image || null,
+    text: selectedPost?.text || '',
+    date: selectedPost?.date || '',
+    title: selectedPost?.title || '',
+    lesson_num: selectedPost?.lesson_num || 0,
+    likes_amount: selectedPost?.likes_amount || 0,
+    dislikes_amount: selectedPost?.dislikes_amount || 0,
+    user_choice: selectedPost?.user_choice || null,
+    author: selectedPost?.author || 0,
+  };
 
   const goToPreviousPost = () => {
     console.log('назад');
@@ -23,14 +37,13 @@ export const AllPostFrom: React.FC = () => {
     console.log('вперед');
   };
 
-  const post = postData();
-
   return (
     <SelectPostWrapper>
       <ImgWrapper>
-        <img src={post.image} alt="Post" />
+        <img src={selectedPost?.image} alt="Post" />
       </ImgWrapper>
-      <p>{post.text}</p>
+      <p>{selectedPost?.text}</p>
+      <PanelPost post={somePostData} />
       <ButtonWrapper>
         <Button8 onClick={goToPreviousPost}>Назад</Button8>
         <Button7 onClick={goToNextPost}>Вперед</Button7>
