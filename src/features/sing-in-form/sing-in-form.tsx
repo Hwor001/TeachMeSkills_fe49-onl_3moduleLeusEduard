@@ -3,13 +3,14 @@ import { Input } from '#ui/input/input';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { setName, setPassword } from '../sing-up-form/sing-up-form.slice';
+import { setEmail, setPassword } from '../sing-up-form/sing-up-form.slice';
 
 export const SingInForm: React.FC = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const name = useAppSelector(({ signUpForm }) => signUpForm.name);
+  const email = useAppSelector(({ signUpForm }) => signUpForm.email);
   const password = useAppSelector(({ signUpForm }) => signUpForm.password);
+
   const handleRegistration = () => {
     navigate('/success');
   };
@@ -17,10 +18,13 @@ export const SingInForm: React.FC = () => {
   return (
     <RegistrationWrapper>
       <Input
-        type="text"
-        labelText="Name"
-        value={name}
-        onChange={({ currentTarget }) => dispatch(setName(currentTarget.value))}
+        type="email"
+        labelText="Email"
+        value={email}
+        onChange={({ currentTarget }) =>
+          dispatch(setEmail(currentTarget.value))
+        }
+        error={email ? undefined : `Email shoudn't be empty`}
       />
       <Input
         type="password"

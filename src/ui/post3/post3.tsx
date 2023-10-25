@@ -8,6 +8,7 @@ import { Post } from '../../features/auth/types';
 import { selectImage } from '#features/postactive/Image.slice';
 import { PostImagePopup } from '#features/postactive/PostImagePopus';
 import { Button9 } from '#ui/button2/button9';
+import { Link, useNavigate } from 'react-router-dom';
 
 interface PostProps {
   post: Post;
@@ -17,6 +18,7 @@ const Post3: React.FC<PostProps> = (PostProps) => {
   const [isPreviewVisible, setPreviewVisible] = useState(false);
   const [isImageVisible, setImageVisible] = useState(false);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   function truncateText(title: string, maxChars: number): string {
     if (title.length <= maxChars) {
@@ -25,6 +27,23 @@ const Post3: React.FC<PostProps> = (PostProps) => {
     const truncatedText = title.substring(0, maxChars);
     return `${truncatedText}...`;
   }
+
+  const handlePostClick = () => {
+    navigate('/selectPost');
+    const selectedPostData = {
+      id: PostProps.post.id,
+      image: PostProps.post.image,
+      text: PostProps.post.text,
+      date: PostProps.post.date,
+      lesson_num: PostProps.post.lesson_num,
+      likes_amount: PostProps.post.likes_amount,
+      dislikes_amount: PostProps.post.dislikes_amount,
+      user_choice: PostProps.post.user_choice,
+      title: PostProps.post.title,
+      author: PostProps.post.author,
+    };
+    dispatch(selectPost(selectedPostData));
+  };
 
   const somePostData = {
     id: PostProps.post.id,
@@ -68,10 +87,12 @@ const Post3: React.FC<PostProps> = (PostProps) => {
   return (
     <PostWrapper>
       <PostWrapper2>
-        <PostWrapper3>
-          <p>{PostProps.post.date}</p>
-          <h3>{truncateText(PostProps.post.title, 100)}</h3>
-        </PostWrapper3>
+        <Link to="/selectPost">
+          <PostWrapper3 onClick={handlePostClick}>
+            <p>{PostProps.post.date}</p>
+            <h3>{truncateText(PostProps.post.title, 100)}</h3>
+          </PostWrapper3>
+        </Link>
         <Button9 onClick={handleImageClick}>
           <PostImg>
             {

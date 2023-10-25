@@ -7,10 +7,12 @@ import { Blog } from '#ui/pages/blog';
 import { SelectPost } from '#ui/pages/selectPost';
 import { Registration } from '#ui/pages/registration';
 import { Success } from '#ui/pages/success';
+import { ActivatePage } from '#ui/pages/activate';
 import styled from 'styled-components';
 import { SeachPost } from '#ui/pages/seachpost';
 import { useTheme } from './ui/theme/themeContext';
 // import { Blog2 } from '#ui/pages/blog2';
+import { useAppSelector } from '#hooks';
 import { Link, Route, Routes, useNavigate } from 'react-router-dom';
 
 export function Root() {
@@ -22,7 +24,7 @@ export function Root() {
     setSearchText(inputValue);
     navigate('/seachPost');
   };
-
+  const { posts } = useAppSelector(({ allPosts }) => allPosts);
   return (
     <div className={`App ${isDarkMode ? 'dark' : 'extra light'}`}>
       <ButtonWrapper>
@@ -35,6 +37,7 @@ export function Root() {
             path="/sing-up"
             element={<SingUp handleSearch={handleSearch} />}
           />
+          <Route path="/activate/:uid/:token" element={<ActivatePage />} />
           <Route
             path="/registration"
             element={<Registration handleSearch={handleSearch} />}
@@ -49,7 +52,7 @@ export function Root() {
           />
           <Route
             path="/selectPost"
-            element={<SelectPost handleSearch={handleSearch} />}
+            element={<SelectPost handleSearch={handleSearch} posts={posts} />}
           />
           <Route
             path="/seachPost"

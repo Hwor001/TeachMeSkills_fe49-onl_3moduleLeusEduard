@@ -8,17 +8,13 @@ import {
   setConfirmedPassword,
 } from './sing-up-form.slice';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { useRef, useEffect } from 'react';
+import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { register } from '../auth/registration.slice';
 
 export const SingUpForm: React.FC = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const nameInputRef = useRef<HTMLInputElement | null>(null);
-  const emailInputRef = useRef<HTMLInputElement | null>(null);
-  const passwordInputRef = useRef<HTMLInputElement | null>(null);
-  const confirmedPasswordInputRef = useRef<HTMLInputElement | null>(null);
   const name = useAppSelector(({ signUpForm }) => signUpForm.name);
   const email = useAppSelector(({ signUpForm }) => signUpForm.email);
   const password = useAppSelector(({ signUpForm }) => signUpForm.password);
@@ -41,7 +37,6 @@ export const SingUpForm: React.FC = () => {
         labelText="Name"
         value={name}
         onChange={({ currentTarget }) => dispatch(setName(currentTarget.value))}
-        ref={nameInputRef}
       />
       <Input
         type="email"
@@ -51,7 +46,6 @@ export const SingUpForm: React.FC = () => {
           dispatch(setEmail(currentTarget.value))
         }
         error={email ? undefined : `Email shoudn't be empty`}
-        ref={emailInputRef}
       />
       <Input
         type="password"
@@ -60,7 +54,6 @@ export const SingUpForm: React.FC = () => {
         onChange={({ currentTarget }) =>
           dispatch(setPassword(currentTarget.value))
         }
-        ref={passwordInputRef}
       />
       <Input
         type="password"
@@ -69,11 +62,18 @@ export const SingUpForm: React.FC = () => {
         onChange={({ currentTarget }) =>
           dispatch(setConfirmedPassword(currentTarget.value))
         }
-        ref={confirmedPasswordInputRef}
       />
       <Button
         variant="primary"
-        onClick={() => dispatch(register({ username: name, password }))}
+        onClick={() =>
+          dispatch(
+            register({
+              username: name,
+              password,
+              email,
+            })
+          )
+        }
       >
         Sign Up
       </Button>

@@ -1,26 +1,27 @@
-import { select, call, put, takeLatest, takeEvery } from 'typed-redux-saga';
+import { call, put, takeEvery, select } from 'typed-redux-saga';
+import { api } from './api';
 import {
-  activate,
-  activateSuccess,
-  activateFailure,
+  activation,
+  activationFailure,
+  activationSuccess,
   setInProgress,
 } from './activation.slice';
-import { api } from './api';
 import { RootState } from '../../store1';
 
 export function* activationSaga() {
-  yield takeEvery(activate, function* activateHandler({ payload }) {
+  yield takeEvery(activation, function* activateHandler({ payload }) {
     const isInProgress = yield* select(
-      (state: RootState) => state.activate.isInProgress
+      (state: RootState) => state.activation.isInProgress
     );
     if (isInProgress) return;
     yield put(setInProgress());
     try {
-      const data = yield* call(api.activation, payload);
-      // console.log(data);
-      yield put(activateSuccess());
-    } catch {
-      yield put(activateFailure());
+      const data = yield* call(api.activate, payload);
+      console.log(data);
+      yield put(activationSuccess());
+    } catch (error) {
+      console.log(error);
+      yield put(activationFailure());
     }
   });
 }

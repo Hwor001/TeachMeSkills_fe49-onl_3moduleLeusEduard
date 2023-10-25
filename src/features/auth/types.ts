@@ -1,6 +1,7 @@
 export type RegistrationPayload = {
   username: string;
   password: string;
+  email: string;
 };
 
 export type UserChoice = 'like' | 'dislike' | null;

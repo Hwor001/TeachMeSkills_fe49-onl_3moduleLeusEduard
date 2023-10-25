@@ -8,23 +8,23 @@ const activationSlice = createSlice({
     isCompleted: false,
   },
   reducers: {
-    activate(state, action: { payload: ActivationPayload }) {
+    activation(state, action: { payload: ActivationPayload }) {
       // state.isInProgress = true;
     },
     setInProgress(state) {
       state.isInProgress = true;
     },
-    activateSuccess(state) {
+    activationSuccess(state) {
       state.isInProgress = false;
       state.isCompleted = true;
     },
-    activateFailure(state) {
+    activationFailure(state) {
       state.isInProgress = false;
     },
   },
 });
 
 export const {
-  actions: { activate, activateSuccess, activateFailure, setInProgress },
+  actions: { activation, activationSuccess, activationFailure, setInProgress },
   reducer: activationReducer,
 } = activationSlice;

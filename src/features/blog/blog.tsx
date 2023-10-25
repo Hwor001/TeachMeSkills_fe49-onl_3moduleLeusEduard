@@ -51,12 +51,6 @@ export const BlogContext: React.FC<ListOfPostsProps> = (
         numbers={tabNumber}
         activeId={activeNumberId}
         onTabClick={setActiveNumberId}
-        //   => {
-        //   setActiveNumberId(activeId);
-        //   if (activeId === '2') {
-        //     navigate('/blog2');
-        //   }
-        // }
       />
     </AllPostAndPanelWrapper>
   );
