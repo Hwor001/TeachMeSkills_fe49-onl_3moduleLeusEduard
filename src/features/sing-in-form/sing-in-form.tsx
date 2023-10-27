@@ -1,45 +1,23 @@
 import { Button } from '#ui/button';
 import { Input } from '#ui/input/input';
-import { useState } from 'react';
-import { Title } from '#ui/title/title';
 import styled from 'styled-components';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { useState } from 'react';
+import { Navigate } from 'react-router-dom';
+import { authorization } from '../auth/authorization.slice';
+import { userInfo } from '../auth/user.slice';
 
 export const SingInForm: React.FC = () => {
+  const dispatch = useAppDispatch();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [registrationError, setRegistrationError] = useState<string | null>(
-    null
+
+  const isCompleted = useAppSelector(
+    (state) => state.authorization.isInCompleted
   );
-  const [isRegistered, setIsRegistered] = useState(false);
 
-  const handleRegistration = () => {
-    const savedEmail = localStorage.getItem('email');
-    const savedPassword = localStorage.getItem('password');
-    if (email !== savedEmail || password !== savedPassword) {
-      setRegistrationError('Name and password are not correct');
-      setTimeout(() => {
-        setRegistrationError(null);
-      }, 2000);
-      return;
-    }
-
-    setRegistrationError(null);
-
-    setEmail('');
-    setPassword('');
-
-    setIsRegistered(true);
-  };
-
-  if (isRegistered) {
-    return (
-      <div>
-        <Title>Success</Title>
-        <Button variant="primary" onClick={() => setIsRegistered(false)}>
-          Go home
-        </Button>
-      </div>
-    );
+  if (isCompleted) {
+    return <Navigate to="/blog" />;
   }
 
   return (
@@ -49,6 +27,7 @@ export const SingInForm: React.FC = () => {
         labelText="Email"
         value={email}
         onChange={({ currentTarget }) => setEmail(currentTarget.value)}
+        error={email ? undefined : `Email shoudn't be empty`}
       />
       <Input
         type="password"
@@ -56,10 +35,15 @@ export const SingInForm: React.FC = () => {
         value={password}
         onChange={({ currentTarget }) => setPassword(currentTarget.value)}
       />
-      <Button variant="primary" onClick={handleRegistration}>
+      <Button
+        variant="primary"
+        onClick={() => {
+          dispatch(authorization({ email, password }));
+          dispatch(userInfo({}));
+        }}
+      >
         Sing in
       </Button>
-      {registrationError && <ErrorWrapper>{registrationError}</ErrorWrapper>}
     </RegistrationWrapper>
   );
 };
@@ -67,11 +51,4 @@ export const SingInForm: React.FC = () => {
 const RegistrationWrapper = styled.div`
   border: 1px solid var(--text-primary-color);
   padding: 40px;
-`;
-
-const ErrorWrapper = styled.p`
-  color: red;
-  font-weight: bold;
-  margin-top: 5px;
-  width: 181px;
 `;

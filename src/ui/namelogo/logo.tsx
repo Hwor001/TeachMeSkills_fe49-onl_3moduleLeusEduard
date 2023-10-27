@@ -1,19 +1,28 @@
-import * as React from 'react';
 import styled from 'styled-components';
 import { NameLogo } from './namelogo';
+import { useAppSelector } from '../../hooks';
 
 interface Props {
   username: string;
 }
 
 export const Logo: React.FC<Props> = ({ username }) => {
-  const savedName = localStorage.getItem('name') || '';
+  const userInfo = useAppSelector((state) => state.user.name);
+  const userName = userInfo.username;
+  let initials = '';
 
-  const firstNameInitial = savedName.charAt(0).toUpperCase();
+  const words = userName.split(' ');
 
+  if (words.length > 0) {
+    initials += words[0].charAt(0);
+
+    if (words.length > 1) {
+      initials += words[1].charAt(0);
+    }
+  }
   return (
     <LogoWrapper>
-      <NameLogo username={`${firstNameInitial}`} />
+      <NameLogo username={initials} />
       {username}
     </LogoWrapper>
   );
@@ -26,6 +35,7 @@ const LogoWrapper = styled.div`
   white-space: nowrap;
   display: flex;
   align-items: center;
+  justify-content: center;
 `;
 
 export default Logo;

@@ -1,20 +1,32 @@
 import { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTimes, faSearch } from '@fortawesome/free-solid-svg-icons';
+import { faTimes, faSearch, faUser } from '@fortawesome/free-solid-svg-icons';
 import styled from 'styled-components';
-import Logo from '../namelogo/logo';
-import { Button4 } from '../button/button4';
-import { Button5 } from '../button/button5';
-import { Button6 } from '../button/button6';
+import { useNavigate } from 'react-router-dom';
+import Logo from '#ui/namelogo/logo';
+import { Button4 } from '#ui/button/button4';
+import { Button5 } from '#ui/button/button5';
+import { Button6 } from '#ui/button/button6';
+import { Button7 } from '#ui/button2/button7';
+import { Button8 } from '#ui/button2/button8';
+import { Button9 } from '#ui/button/button9';
+import { Button10 } from '#ui/button2/button10';
+import { Button11 } from '#ui/button/button11';
+import { useAppSelector } from '../../hooks';
 
-interface Props {}
+interface Props {
+  handleSearch: (searchText: string) => void;
+}
 
-export const Header: React.FC<Props> = () => {
+export const Header: React.FC<Props> = ({ handleSearch }) => {
+  const userInfo = useAppSelector((state) => state.user.name);
+  const userName = userInfo.username;
+  const navigate = useNavigate();
   const [showLogo, setShowLogo] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [inputValue, setInputValue] = useState('');
-  const savedName = localStorage.getItem('name') || '';
-  const savedLastName = localStorage.getItem('lastname') || '';
+  const [isMouseOver, setIsMouseOver] = useState(false);
+  const [showNameAndLastName, setShowNameAndLastName] = useState(true);
 
   const toggleLogo = () => {
     document.documentElement.style.setProperty(
@@ -37,12 +49,45 @@ export const Header: React.FC<Props> = () => {
     setIsMenuOpen(!isMenuOpen);
   };
 
+  const buttonfaUser = () => {
+    navigate('/sing-in');
+  };
+
+  const buttonAddPost = () => {};
+
+  const buttonHome = () => {
+    navigate('/blog');
+  };
+
+  const buttonLogOut = () => {
+    setShowNameAndLastName(false);
+    setIsMenuOpen(false);
+    navigate('/sing-in');
+  };
+
+  const buttonSingIn = () => {
+    navigate('/sing-in');
+  };
+
   const clearInput = () => {
     setInputValue('');
   };
 
-  const handleSearch = () => {
+  const handleSearchButtonClick = () => {
     console.log(inputValue);
+    handleSearch(inputValue);
+  };
+
+  const handleMouseEnter = () => {
+    if (!isMenuOpen) {
+      setIsMouseOver(true);
+    }
+  };
+
+  const handleMouseLeave = () => {
+    if (!isMenuOpen && !inputValue) {
+      setIsMouseOver(false);
+    }
   };
 
   return (
@@ -54,32 +99,69 @@ export const Header: React.FC<Props> = () => {
           <span></span>
         </BurgerWrapper>
       </Button5>
-      {showLogo ? (
-        <BlueRectangle className="blue-rectangle" />
-      ) : (
-        <SeachWrapper className="search">
-          <input
-            className="search-text"
-            type="text"
-            placeholder="Search..."
-            value={inputValue}
-            onChange={(e) => setInputValue(e.target.value)}
-          />
-          <Button6 onClick={clearInput}>
-            <FontAwesomeIcon icon={faTimes} />
-          </Button6>
-        </SeachWrapper>
-      )}
-      <Button4 onClick={handleSearch}>
+      <BlueRectangle
+        className="blue-rectangle"
+        onClick={handleMouseEnter}
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
+      >
+        {isMouseOver ? (
+          <SeachWrapper>
+            <input
+              className="search-text"
+              type="text"
+              placeholder="Search..."
+              value={inputValue}
+              onChange={(e) => setInputValue(e.target.value)}
+            />
+            <Button6 onClick={clearInput}>
+              <FontAwesomeIcon icon={faTimes} />
+            </Button6>
+          </SeachWrapper>
+        ) : null}
+      </BlueRectangle>
+      <Button4 onClick={handleSearchButtonClick}>
         <FontAwesomeIcon icon={faSearch} />
       </Button4>
-      <Logo username={`${savedName}  ${savedLastName}`} />
-      <LogoWrapper>
-        {showLogo && <Logo username={`${savedName}  ${savedLastName}`} />}
-      </LogoWrapper>
+      {userName ? (
+        <Logo username={userName} />
+      ) : (
+        <Button7 onClick={buttonfaUser}>
+          <FontAwesomeIcon icon={faUser} />
+        </Button7>
+      )}
+      {showLogo && (
+        <BurgerMenuWrapper>
+          {userName ? (
+            <>
+              <LogoWrapper>
+                <Logo username={showNameAndLastName ? userName : ''} />
+                <Button9 onClick={buttonHome}>Home</Button9>
+                <Button8 onClick={buttonAddPost}>Add post</Button8>
+              </LogoWrapper>
+              <ButtonWrapper>
+                <Button10 onClick={buttonLogOut}>Log Out</Button10>
+              </ButtonWrapper>
+            </>
+          ) : (
+            <>
+              <LogoWrapper>
+                <Button9 onClick={buttonHome}>Home</Button9>
+              </LogoWrapper>
+              <ButtonWrapper>
+                <Button11 onClick={buttonSingIn}>Sing In</Button11>
+              </ButtonWrapper>
+            </>
+          )}
+        </BurgerMenuWrapper>
+      )}
     </HeaderWrapper>
   );
 };
+
+const ButtonWrapper = styled.div`
+  display: grid;
+`;
 
 const BurgerWrapper = styled.div`
   display: block;
@@ -115,10 +197,20 @@ const HeaderWrapper = styled.div`
   position: relative;
 `;
 
-const LogoWrapper = styled.div`
-  display: flex;
-  transform: translate3d(0px, 44px, 0px);
+const BurgerMenuWrapper = styled.div`
+  background-color: white;
+  height: 92.2vh;
+  width: 236px;
   position: absolute;
+  transform: translate3d(0px, 64px, 0px);
+  display: grid;
+  align-items: start;
+  align-content: space-between;
+  z-index: 1;
+`;
+
+const LogoWrapper = styled.div`
+  display: grid;
 `;
 
 const SeachWrapper = styled.div`
@@ -127,17 +219,18 @@ const SeachWrapper = styled.div`
   input {
     width: -webkit-fill-available;
     background-color: #4949b1;
-    padding: 13px 0;
+    padding: 23px 0;
     color: white;
     &::placeholder {
       color: silver;
+      text-indent: 25px;
     }
   }
 `;
 
 const BlueRectangle = styled.div`
   width: -webkit-fill-available;
-  height: 43.48px;
+  height: 64.48px;
   background-color: blue;
 `;
 
