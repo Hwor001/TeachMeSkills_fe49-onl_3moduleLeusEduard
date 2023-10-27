@@ -11,6 +11,7 @@ import { registrationReducer } from '#features/auth/registration.slice';
 import { likeDislikeReducer } from './features/like-dislike/like-dislike.slice';
 import { activationReducer } from '#features/auth/activation.slice';
 import { authorizationReducer } from './features/auth/authorization.slice';
+import { userReducer } from '#features/auth/user.slice';
 
 const sagaMiddleware = createSagaMiddleware();
 
@@ -24,6 +25,7 @@ const rootReducer = combineReducers({
   likeDislike: likeDislikeReducer,
   activation: activationReducer,
   authorization: authorizationReducer,
+  user: userReducer,
 });
 
 export const store = configureStore({

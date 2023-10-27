@@ -3,6 +3,7 @@ import { registerSaga } from './features/auth/registerSaga';
 import { getAllPostsSaga } from './features/postactive/all-posts.sagas';
 import { activationSaga } from './features/auth/activation.sagas';
 import { authorizationSaga } from './features/auth/authorization.sagas';
+import { UserSaga } from './features/auth/user.sagas';
 
 export function* rootSaga() {
   yield all([
@@ -10,5 +11,6 @@ export function* rootSaga() {
     getAllPostsSaga(),
     activationSaga(),
     authorizationSaga(),
+    UserSaga(),
   ]);
 }

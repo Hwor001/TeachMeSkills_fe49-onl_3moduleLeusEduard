@@ -1,4 +1,4 @@
-import { PostsResponse } from '../../features/auth/types';
+import { PostsResponse, UserName } from '../../features/auth/types';
 import {
   ActivationPayload,
   AuthorizationPayload,
@@ -7,6 +7,7 @@ import {
 } from './types';
 import { baseUrl, jsonContentTypeHeaders } from '../../api/constants';
 import { request } from '../../api/request';
+import { getTokens } from '../../api/tokens';
 
 export const api = {
   activate: (payload: ActivationPayload): Promise<string> => {
@@ -61,6 +62,22 @@ export const allPostsapi = {
     }).then((response) => {
       if (!response.ok) {
         throw new Error('SERVER ERROR');
+      }
+      return response.json();
+    });
+  },
+};
+
+export const userApi = {
+  userInfo: (): Promise<UserName> => {
+    return request(baseUrl + 'auth/users/me/', {
+      method: 'GET',
+      headers: {
+        authorization: 'Bearer ' + getTokens()?.access,
+      },
+    }).then((response) => {
+      if (!response.ok) {
+        throw new Error('SERVER_ERROR');
       }
       return response.json();
     });

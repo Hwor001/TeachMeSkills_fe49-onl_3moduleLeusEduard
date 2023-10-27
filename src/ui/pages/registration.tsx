@@ -1,5 +1,5 @@
 import { Button3 } from '#ui/button/button3';
-import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import Header from '#ui/header/header';
 import { MainTemplate } from '#ui/templates/main-template';
 import { Title } from '#ui/title/title';
@@ -10,16 +10,18 @@ interface Props {
 }
 
 export const Registration: React.FC<Props> = ({ handleSearch }) => {
-  const navigate = useNavigate();
-  const handleButtonClick = () => {
-    navigate('/blog');
-  };
   return (
     <MainTemplate
       header={<Header handleSearch={handleSearch} />}
       backLink={<Backlink />}
       title={<Title>Registration Confirmation</Title>}
-      body={<Button3 onClick={handleButtonClick}>Go home</Button3>}
+      body={
+        <Link to="/sing-in">
+          <Button3 onClick={() => null} role="presentation">
+            Go home
+          </Button3>
+        </Link>
+      }
     />
   );
 };

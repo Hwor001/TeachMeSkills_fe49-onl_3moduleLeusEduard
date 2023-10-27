@@ -12,20 +12,21 @@ import { Button8 } from '#ui/button2/button8';
 import { Button9 } from '#ui/button/button9';
 import { Button10 } from '#ui/button2/button10';
 import { Button11 } from '#ui/button/button11';
+import { useAppSelector } from '../../hooks';
 
 interface Props {
   handleSearch: (searchText: string) => void;
 }
 
 export const Header: React.FC<Props> = ({ handleSearch }) => {
-  const name = 'Leus Eduard';
+  const userInfo = useAppSelector((state) => state.user.name);
+  const userName = userInfo.username;
   const navigate = useNavigate();
   const [showLogo, setShowLogo] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [inputValue, setInputValue] = useState('');
   const [isMouseOver, setIsMouseOver] = useState(false);
   const [showNameAndLastName, setShowNameAndLastName] = useState(true);
-  const savedName = name || '';
 
   const toggleLogo = () => {
     document.documentElement.style.setProperty(
@@ -122,8 +123,8 @@ export const Header: React.FC<Props> = ({ handleSearch }) => {
       <Button4 onClick={handleSearchButtonClick}>
         <FontAwesomeIcon icon={faSearch} />
       </Button4>
-      {savedName ? (
-        <Logo username={showNameAndLastName ? name : ''} />
+      {userName ? (
+        <Logo username={userName} />
       ) : (
         <Button7 onClick={buttonfaUser}>
           <FontAwesomeIcon icon={faUser} />
@@ -131,10 +132,10 @@ export const Header: React.FC<Props> = ({ handleSearch }) => {
       )}
       {showLogo && (
         <BurgerMenuWrapper>
-          {savedName ? (
+          {userName ? (
             <>
               <LogoWrapper>
-                <Logo username={showNameAndLastName ? name : ''} />
+                <Logo username={showNameAndLastName ? userName : ''} />
                 <Button9 onClick={buttonHome}>Home</Button9>
                 <Button8 onClick={buttonAddPost}>Add post</Button8>
               </LogoWrapper>

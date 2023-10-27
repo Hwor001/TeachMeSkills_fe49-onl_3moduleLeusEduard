@@ -64,3 +64,9 @@ export type AuthorizationResponse = {
   access: string;
   refresh: string;
 };
+
+export type UserName = {
+  username: string;
+  id: number;
+  email: string;
+};

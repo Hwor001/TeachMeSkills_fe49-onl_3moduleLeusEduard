@@ -1,19 +1,24 @@
 import { Button } from '#ui/button';
 import { Input } from '#ui/input/input';
 import styled from 'styled-components';
-import { useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { setEmail, setPassword } from '../sing-up-form/sing-up-form.slice';
+import { useState } from 'react';
+import { Navigate } from 'react-router-dom';
+import { authorization } from '../auth/authorization.slice';
+import { userInfo } from '../auth/user.slice';
 
 export const SingInForm: React.FC = () => {
-  const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const email = useAppSelector(({ signUpForm }) => signUpForm.email);
-  const password = useAppSelector(({ signUpForm }) => signUpForm.password);
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
-  const handleRegistration = () => {
-    navigate('/success');
-  };
+  const isCompleted = useAppSelector(
+    (state) => state.authorization.isInCompleted
+  );
+
+  if (isCompleted) {
+    return <Navigate to="/blog" />;
+  }
 
   return (
     <RegistrationWrapper>
@@ -21,20 +26,22 @@ export const SingInForm: React.FC = () => {
         type="email"
         labelText="Email"
         value={email}
-        onChange={({ currentTarget }) =>
-          dispatch(setEmail(currentTarget.value))
-        }
+        onChange={({ currentTarget }) => setEmail(currentTarget.value)}
         error={email ? undefined : `Email shoudn't be empty`}
       />
       <Input
         type="password"
         labelText="Password"
         value={password}
-        onChange={({ currentTarget }) =>
-          dispatch(setPassword(currentTarget.value))
-        }
+        onChange={({ currentTarget }) => setPassword(currentTarget.value)}
       />
-      <Button variant="primary" onClick={handleRegistration}>
+      <Button
+        variant="primary"
+        onClick={() => {
+          dispatch(authorization({ email, password }));
+          dispatch(userInfo({}));
+        }}
+      >
         Sing in
       </Button>
     </RegistrationWrapper>
