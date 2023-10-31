@@ -1,4 +1,3 @@
-import * as React from 'react';
 import styled from 'styled-components';
 
 interface Props {
@@ -19,6 +18,6 @@ const ButtonWrapper = styled.button`
   all: unset;
   cursor: pointer;
   position: absolute;
-  transform: translate3d(-28px, 11px, 10px);
+  transform: translate3d(-28px, 22px, 10px);
   color: white;
 `;

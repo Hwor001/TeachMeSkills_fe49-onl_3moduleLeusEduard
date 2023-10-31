@@ -5,10 +5,14 @@ import styled from 'styled-components';
 import { Backlink } from '../../features/back-link/back-link';
 import { AllPostFrom } from '../../features/select-post-form/select-post-form';
 
-export const SelectPost: React.FC = () => {
+interface Props {
+  handleSearch: (searchText: string) => void;
+}
+
+export const SelectPost: React.FC<Props> = ({ handleSearch }) => {
   return (
     <MainTemplate
-      header={<Header></Header>}
+      header={<Header handleSearch={handleSearch}></Header>}
       backLink={<Backlink />}
       title={
         <TitlewRapper>
